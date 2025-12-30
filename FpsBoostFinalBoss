@@ -1,0 +1,64 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+
+local Thrown = workspace:WaitForChild("Thrown")
+
+local EFFECT_CLASSES = {
+    ParticleEmitter = true,
+    Trail = true,
+    Fire = true,
+    Smoke = true,
+    Sparkles = true,
+    Beam = true,
+    Explosion = true,
+}
+
+local function stripEffects(instance)
+    for _, d in ipairs(instance:GetDescendants()) do
+        if EFFECT_CLASSES[d.ClassName] then
+            d:Destroy()
+        end
+    end
+end
+
+task.spawn(function()
+    while true do
+        for _, player in ipairs(Players:GetPlayers()) do
+            local char = player.Character
+            if char then
+                stripEffects(char)
+            end
+        end
+
+        local npc = workspace:FindFirstChild("Weakest Dummy")
+        if npc then
+            stripEffects(npc)
+        end
+
+        local terrain = workspace:FindFirstChild("Terrain")
+        if terrain then
+            for _, d in ipairs(terrain:GetDescendants()) do
+                if d.Name == "SmokeBack" or d.Name == "Attachment" then
+                    d:Destroy()
+                end
+            end
+        end
+
+        task.wait(0.1)
+    end
+end)
+
+RunService.Heartbeat:Connect(function()
+    for _, obj in ipairs(Thrown:GetChildren()) do
+        if not (obj:IsA("Model") and (obj.Name == "Aurora" or obj.Name == "Donation Leaderboard")) then
+            obj:Destroy()
+        end
+    end
+end)
+
+StarterGui:SetCore("SendNotification", {
+    Title = "FPS Mode Enabled",
+    Text = "Effects, debris, and visuals stripped",
+    Duration = 4
+})
