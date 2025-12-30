@@ -58,7 +58,7 @@ RunService.Heartbeat:Connect(function()
 end)
 
 StarterGui:SetCore("SendNotification", {
-    Title = "FPS Mode Enabled",
-    Text = "Effects, debris, and visuals stripped",
+    Title = "FPS BOOSTERRRROOO",
+    Text = "By Cap(CapLonerPo)",
     Duration = 4
 })
