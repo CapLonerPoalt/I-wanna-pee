@@ -1,0 +1,3681 @@
+-- Script Path: game:GetService("Workspace").Live.czdqdzqdzqdzq854768.CharacterHandler.Client
+-- Took 0.49s to decompile.
+-- Executor: Volcano (v3)
+
+--Decompiled by Medal, I take no credit I only Made The dumper and I I.. I iron man
+local v_u_1 = tick()
+local v_u_2 = game.Players.LocalPlayer
+local v_u_3 = v_u_2.Character or v_u_2.CharacterAdded:Wait()
+local v4 = script.Parent.Parent
+if v4:GetAttribute("ClonedChar") or v4:GetAttribute("ClonedCharS") then
+    return
+end
+if v4:GetAttribute("ClonedChar2") then
+    return script:Destroy("")
+end
+task.delay(0.065, function()
+    -- upvalues: (copy) v_u_2
+    if v_u_2:GetAttribute("Open") and not (workspace:GetAttribute("RankedOnes") or workspace:GetAttribute("RankedTwos")) then
+        game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+    end
+end)
+task.delay(0.5, function()
+    game.Lighting.Atmosphere.Density = 0.213
+end)
+local v_u_5 = v_u_3.Humanoid
+local v_u_6 = v_u_3.HumanoidRootPart
+local v_u_7 = v_u_3.Head
+local v_u_8 = v_u_3.Communicate
+local v9 = v_u_2.PlayerGui
+local _ = game.Lighting.ClockTime
+local v_u_10 = game.FindFirstChild
+local v_u_11 = require(game.ReplicatedStorage.ActionCheck)
+local v_u_12 = require(game.ReplicatedStorage.Info)
+local v_u_13 = v_u_3:WaitForChild("Animate", 5)
+local v_u_14 = 0
+local v_u_15 = 0
+local v_u_16 = false
+local v_u_17 = 0
+local v_u_18 = 0
+local _ = v_u_13:WaitForChild("walk"):WaitForChild("WalkAnim").AnimationId
+local v_u_19 = game:service("TweenService")
+local v20 = game:GetService("ContextActionService")
+local v_u_21 = game:service("UserInputService")
+local v_u_22 = nil
+local v_u_23 = nil
+local v_u_24 = game:GetService("CollectionService")
+local v_u_25 = nil
+local v_u_26 = v_u_3:FindFirstChild("Torso")
+local function v_u_28()
+    local v27 = Color3.fromRGB
+    game.Lighting.Ambient = Color3.fromRGB(138, 138, 138)
+    game.Lighting.Brightness = 2
+    game.Lighting.ColorShift_Bottom = v27(53, 53, 53)
+    game.Lighting.ColorShift_Top = v27(90, 90, 90)
+    game.Lighting.EnvironmentDiffuseScale = 0
+    game.Lighting.EnvironmentSpecularScale = 0
+    game.Lighting.GlobalShadows = true
+    game.Lighting.OutdoorAmbient = v27(128, 128, 128)
+    game.Lighting.ClockTime = 12.302
+    game.Lighting.GeographicLatitude = -0.41
+    game.Lighting.ShadowSoftness = 0.2
+    game.Lighting.ExposureCompensation = 0
+end
+local v_u_32 = (function()
+    -- upvalues: (copy) v_u_2, (copy) v_u_10
+    local v_u_29 = v_u_2.Character or v_u_2.CharacterAdded:wait()
+    local v_u_30 = require(v_u_29.CharacterHandler:FindFirstChild("AnimationPlayer") or v_u_29.CharacterHandler:WaitForChild("AnimationPlayer"))
+    return function(p31)
+        -- upvalues: (copy) v_u_30, (ref) v_u_10, (copy) v_u_29
+        return v_u_30.playAnimation(v_u_10(v_u_29, "Humanoid"), p31)
+    end
+end)()
+if not v_u_2:GetAttribute("ClientPreloaded") then
+    v_u_2:SetAttribute("ClientPreloaded", true)
+    spawn(function()
+        -- upvalues: (copy) v_u_32
+        for _, v33 in pairs({
+            95381968345719,
+            105442749844047,
+            94638356008696,
+            110919480865708,
+            116972556865480,
+            118011922819826,
+            77753047015776,
+            111945303423868,
+            109617620932970,
+            129181452949382,
+            104862750267967,
+            103668868712897,
+            72533960079559,
+            105405781808472,
+            82365328621192,
+            82365328621192,
+            101588604872680,
+            102989537449083,
+            77509627104305,
+            98542310119798,
+            77936124430857,
+            114095570398448,
+            116153572280464,
+            116753755471636,
+            138932866508108,
+            75127576841159,
+            125651207781437,
+            89951386537089,
+            119212255361081,
+            131094640128630,
+            104756822193775,
+            76857454472003,
+            85662656113434,
+            105616370132258,
+            105725109678703,
+            129361308786827,
+            89772127095146,
+            133729834760596,
+            77727115892579,
+            88023704984538,
+            99451623559327,
+            116187503451999
+        }) do
+            local v34 = v_u_32(v33)
+            v34:Play()
+            v34:Stop()
+            task.wait()
+        end
+    end)
+end
+local v_u_35 = v_u_2.PlayerGui:WaitForChild("ShiftLock"):WaitForChild("SkipButton")
+local function v_u_37()
+    -- upvalues: (copy) v_u_35
+    for _, v36 in pairs(v_u_35:GetDescendants()) do
+        if v36:IsA("TextLabel") then
+            v36.TextTransparency = 1
+        end
+        if v36:IsA("Frame") then
+            v36.BackgroundTransparency = 1
+        end
+    end
+    v_u_35.Visible = false
+end
+spawn(function()
+    -- upvalues: (copy) v_u_37
+    v_u_37()
+end)
+local function v_u_39(...)
+    -- upvalues: (copy) v_u_3, (copy) v_u_8
+    local v38 = { ... }
+    if v38[1].Goal ~= "LeftClick" or not (v_u_3:GetAttribute("InMech") and v_u_3:FindFirstChild("MechDash")) then
+        return v_u_8:FireServer(unpack(v38))
+    end
+end
+local function v_u_43(p40)
+    -- upvalues: (copy) v_u_3
+    local v41 = v_u_3:FindFirstChild("Torso")
+    local v42 = v41 and v41:FindFirstChild("Left Hip")
+    if v42 then
+        v42.C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0) * CFrame.new(0, 0.001, 0)
+        task.wait(p40 or 0.15)
+        v42.C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+    end
+end
+local v_u_44 = 0
+local v_u_45 = 0
+local v_u_46 = 0
+local v_u_47 = false
+local v_u_48 = false
+local v_u_49 = shared.ray
+local v_u_50 = nil
+v_u_5.Jumping:Connect(function(p51)
+    -- upvalues: (copy) v_u_39, (ref) v_u_18, (ref) v_u_17, (ref) v_u_50
+    if p51 then
+        v_u_39({
+            ["Goal"] = "Record Jump"
+        })
+        if tick() - v_u_18 > 1.25 then
+            v_u_17 = 0
+        end
+        v_u_18 = tick()
+        v_u_17 = v_u_17 + 1.5
+        v_u_50()
+    end
+end)
+workspace.CurrentCamera.CameraSubject = v_u_5
+v_u_5.Died:Connect(function()
+    -- upvalues: (copy) v_u_3
+    local v52 = v_u_3:FindFirstChild("Head")
+    if v52 then
+        if v_u_3:GetAttribute("Override") then
+            return
+        end
+        workspace.CurrentCamera.CameraSubject = v52
+        v52.CanCollide = true
+    end
+end)
+local function v64(p53)
+    local v54 = os.time()
+    local v55 = math.sin(v54) * math.random(1, 100 + workspace.DistributedGameTime)
+    local v56 = math.floor(v55)
+    if v56 > 0 then
+        local v57 = v56 * 10
+        local v58 = math.rad(v57)
+        local _ = v56 - 1
+        local _ = 0 + math.sin(v58) + math.cos(v58)
+    end
+    local v59 = math.random(-100, 100)
+    if v59 > 1 then
+        local _ = v59 * (v59 - 1)
+    end
+    local v60 = math.random(1, 8458.13581)
+    local v61 = math.random(1, 125.9)
+    local v62 = math.sqrt(v61)
+    local v63 = math.floor(v62)
+    if v63 ~= 1 and v60 % v63 ~= 0 then
+        local _ = v63 - 1
+    end
+    return #p53.Name
+end
+for _, v65 in pairs(v_u_24:GetTagged("InvisibleWalls")) do
+    v65.CanCollide = true
+end
+local v_u_66 = workspace.CurrentCamera
+local v_u_67 = v_u_21.TouchEnabled
+shared.ismobile = v_u_67
+v_u_3:SetAttribute("mobile", v_u_67)
+local v_u_68 = v_u_21.GamepadEnabled
+shared.isconsole = v_u_68
+local v_u_69 = v_u_67 or (v_u_68 or v_u_2:GetAttribute("S_AutoRun"))
+v_u_39({
+    ["Goal"] = "Platform",
+    ["mobile"] = v_u_67
+})
+v_u_39({
+    ["Goal"] = "Platform",
+    ["console"] = v_u_68
+})
+if v_u_67 or v_u_68 then
+    v_u_66:GetPropertyChangedSignal("CameraType"):Connect(function()
+        -- upvalues: (copy) v_u_66
+        if v_u_66.CameraType == Enum.CameraType.Custom then
+            v_u_66.CameraType = Enum.CameraType.Track
+        end
+    end)
+    v_u_66.CameraType = Enum.CameraType.Track
+else
+    v_u_66.CameraType = Enum.CameraType.Custom
+end
+v_u_66.FieldOfView = 70
+v_u_2.CameraMaxZoomDistance = 128
+v_u_2.CameraMinZoomDistance = 0.5
+if shared.SetCore then
+    shared.SetCore(true)
+end
+v_u_66.CameraSubject = v_u_5
+local v70 = shared
+local v71 = v64(v20)
+if not v70[tostring(v71)] then
+    local v72 = require(game.ReplicatedStorage.Emotes)
+    local v73 = shared
+    local v74 = v64(v20)
+    v73[tostring(v74)] = v72:Get()
+end
+local v_u_75 = {
+    133207489574364,
+    123922174277846,
+    85277435164346,
+    101827859807030,
+    140153723843649,
+    137951297430715,
+    130389045965718,
+    75547590335774,
+    136270021435621,
+    132259592388175,
+    95575238948327,
+    102814369422840,
+    75502010126640,
+    85813428590588,
+    86490931396573,
+    10471478869,
+    17141153099,
+    77727115892579,
+    140164642047188,
+    71377448806509,
+    90072892650917,
+    96865367566704,
+    73060755698819,
+    96865367566704,
+    73060755698819,
+    76530443909428,
+    18182456608,
+    18897115785,
+    18897116845,
+    18897118507,
+    18897119503,
+    18897120868,
+    18897121931,
+    18182425133,
+    18896229321,
+    71060716968719,
+    114763770211803,
+    121440687354239,
+    18896127525,
+    18896124320,
+    18896232119,
+    18896222853,
+    18170032354,
+    18896121004,
+    18462892217,
+    18461540788,
+    18462894593,
+    94020267622363,
+    137624104134020,
+    111972629507155,
+    116152673970658,
+    18896418413,
+    18435535291,
+    18464351556,
+    18464353914,
+    18464356233,
+    18464358704,
+    18464373968,
+    18464372850,
+    16945550029,
+    16945557433,
+    16945573694,
+    17354976067,
+    17363256069,
+    17420452843,
+    17889083042,
+    17857788598,
+    17799224866,
+    17838619895,
+    17838006839,
+    17464644182,
+    17466449380,
+    17278415853,
+    17275798442,
+    17275150809,
+    17275795209,
+    16571461202,
+    16572107136,
+    16571311078,
+    16571909908,
+    13633468484,
+    13632671563,
+    15685307415,
+    15685170827,
+    14348708797,
+    14004235777,
+    16057411888,
+    16062410809,
+    16065180813,
+    16062712948,
+    16082123712,
+    16737255386,
+    16708190748,
+    16057182201,
+    15391323441,
+    16734584478,
+    15334671028,
+    14348269600,
+    13997299436,
+    14527229510,
+    12772543293,
+    13630786846,
+    13784794366,
+    13785666020,
+    15295895753,
+    14347157007,
+    13813099821,
+    14057231976,
+    15146053853,
+    15519697166,
+    15290648124,
+    14064628358,
+    14046756619,
+    14048285180,
+    14349470649,
+    14055425251,
+    14705929107,
+    14700473573,
+    14712704206,
+    14712547902,
+    14701242661,
+    14809854900,
+    14809836765,
+    14798721934,
+    14798608838,
+    14875667895,
+    14875678235,
+    14920779925,
+    14901894832,
+    15124858806,
+    15123665491,
+    16431491215,
+    15123914491,
+    15129887320,
+    14721073639,
+    14721073185,
+    14721072425,
+    14721071897,
+    14721071288,
+    14721070668,
+    14721069953,
+    106755459092436
+}
+local v_u_76 = false
+local v_u_77 = false
+local v_u_78 = nil
+local v_u_79 = nil
+local v_u_80 = nil
+local v_u_81 = nil
+local v_u_82 = false
+local v_u_83 = false
+for _, v84 in pairs(require(game.ReplicatedStorage.Emotes):Play(nil, nil, true, nil, true)) do
+    if v84.Fix or (v84.CantCancel or v84.AnimationFixes) then
+        local v85 = v84.Animation
+        table.insert(v_u_75, v85)
+        if v84.AnimationTwo then
+            local v86 = v84.AnimationTwo
+            table.insert(v_u_75, v86)
+        end
+        if v84.Idle then
+            local v87 = v84.Idle
+            table.insert(v_u_75, v87)
+        end
+        if v84.AnimationFixes then
+            for _, v89 in pairs(v84.AnimationFixes) do
+                if typeof(v89) == "Instance" then
+                    local v89 = not game:GetService("RunService"):IsStudio() and 1.249129419249125e20 or game:GetService("KeyframeSequenceProvider"):RegisterKeyframeSequence(v89)
+                end
+                table.insert(v_u_75, v89)
+            end
+        end
+    end
+end
+for _, v90 in pairs(v_u_12.Intros) do
+    local v91 = v90.id
+    table.insert(v_u_75, v91)
+end
+for _, v92 in pairs(game.ReplicatedStorage.Info.Walls:GetChildren()) do
+    local v93 = require(v92)
+    local v94 = v93.userAnimation
+    table.insert(v_u_75, v94)
+    local v95 = v93.victimAnimation
+    table.insert(v_u_75, v95)
+end
+local v_u_96 = tick()
+local v_u_97 = {
+    "rbxassetid://96081012427967",
+    "rbxassetid://119212255361081",
+    "rbxassetid://10471478869",
+    "rbxassetid://17275798442",
+    "rbxassetid://14516273501",
+    "rbxassetid://10473653782",
+    "rbxassetid://13499771836",
+    "rbxassetid://14375217667",
+    "rbxassetid://13307180024",
+    "rbxassetid://12295806041",
+    "rbxassetid://10473654583",
+    "rbxassetid://10473655082",
+    "rbxassetid://10473655645",
+    "rbxassetid://10470389827",
+    "rbxassetid://14840458512",
+    "rbxassetid://17824514728",
+    "rbxassetid://17824512914",
+    "rbxassetid://17824518620"
+}
+for _, v98 in pairs(v_u_13:GetDescendants()) do
+    if v98:IsA("Animation") then
+        local v99 = v98.AnimationId
+        local v100 = tostring(v99)
+        table.insert(v_u_97, v100)
+    end
+end
+local v_u_101 = {}
+game:GetService("LogService").MessageOut:Connect(function(p102, p103)
+    -- upvalues: (copy) v_u_32
+    if p103 == Enum.MessageType.MessageOutput and p102 == "emote loaded buddy,nilaura on Discord" then
+        task.wait(30)
+        v_u_32(120757092696733):Play()
+    end
+end)
+local v_u_104 = 0
+local function v_u_106()
+    -- upvalues: (copy) v_u_3, (copy) v_u_43
+    for _ = 1, 2 do
+        local v_u_105 = v_u_3:FindFirstChild("Ragdoll")
+        v_u_43()
+        if v_u_105 then
+            if not v_u_105:GetAttribute("dddd") then
+                v_u_105:SetAttribute("dddd", true)
+                v_u_105:GetPropertyChangedSignal("Parent"):Connect(function()
+                    -- upvalues: (copy) v_u_105, (ref) v_u_43
+                    if not v_u_105.Parent then
+                        v_u_43()
+                    end
+                end)
+            end
+        else
+            v_u_43()
+        end
+        task.wait(0.15)
+    end
+end
+local function v253(p_u_107)
+    -- upvalues: (copy) v_u_75, (copy) v_u_106, (copy) v_u_101, (copy) v_u_2, (copy) v_u_96, (copy) v_u_6, (ref) v_u_104, (copy) v_u_3, (ref) v_u_79, (ref) v_u_83, (ref) v_u_76, (copy) v_u_49, (ref) v_u_77, (ref) v_u_78, (copy) v_u_26, (ref) v_u_80, (copy) v_u_19, (ref) v_u_81, (ref) v_u_82
+    local v108 = p_u_107.Animation
+    if v108 then
+        local v109 = v108.AnimationId:match("[/=](%d+)")
+        if (table.find(v_u_75, (tonumber(v109))) or table.find(v_u_75, v108.AnimationId)) and not v_u_75[tonumber(v109)] then
+            v_u_75[tonumber(v109)] = p_u_107.Ended:Connect(v_u_106)
+            v_u_75[tonumber(v109)] = p_u_107.Stopped:Connect(v_u_106)
+        end
+        if v_u_101[v109] then
+            p_u_107:AdjustWeight(0.01)
+            p_u_107:Stop(0)
+        end
+        if v_u_2:GetAttribute("PreloadDone") or tick() - v_u_96 >= 10 then
+            if (v_u_6.AssemblyCenterOfMass - v_u_6.Position).magnitude >= 1 and tick() - v_u_104 > 0.03 then
+                v_u_104 = tick()
+                task.spawn(v_u_106)
+            end
+            if tonumber(v109) == 13603396939 then
+                shared.repfire({
+                    ["Effect"] = "AntiMove"
+                })
+            end
+            if tonumber(v109) == 115484690572880 then
+                local v_u_110 = Instance.new("Accessory")
+                v_u_110.Name = "BodyGyroBind"
+                v_u_110.Parent = v_u_3
+                v_u_110:SetAttribute("StunCheck", true)
+                game.Debris:AddItem(v_u_110, 5)
+                local v111 = {
+                    ["Effect"] = "BodyGyro",
+                    ["Bind"] = v_u_110,
+                    ["Server"] = true,
+                    ["char"] = v_u_3
+                }
+                shared.repfire(v111)
+                local v_u_112 = Instance.new("BodyVelocity")
+                v_u_112.Name = "moveme"
+                v_u_112.MaxForce = Vector3.new(90000, 90000, 90000)
+                v_u_112:SetAttribute("Speed", 1)
+                v_u_112:SetAttribute("NoY", true)
+                v_u_112:SetAttribute("End", 0)
+                v_u_112:SetAttribute("Goto", 25)
+                v_u_112:SetAttribute("Fallout", 1)
+                v_u_112:SetAttribute("StunCheck", true)
+                v_u_112:SetAttribute("Aerial", 20)
+                v_u_112:SetAttribute("YForceImmunity", true)
+                v_u_112:SetAttribute("RemoveOthers", true)
+                task.delay(0.25, function()
+                    -- upvalues: (copy) v_u_112
+                    v_u_112:SetAttribute("Aerial", nil)
+                    v_u_112:SetAttribute("Fallout", 1)
+                end)
+                local v_u_113 = false
+                task.delay(0.6, function()
+                    -- upvalues: (copy) v_u_112, (ref) v_u_113
+                    if v_u_112 and v_u_112.Parent then
+                        local v114 = v_u_112:GetAttribute("Speed")
+                        local v115 = tonumber(v114)
+                        v_u_112:SetAttribute("Fallout", 0.885)
+                        local v116 = tick()
+                        local v117 = 5
+                        while task.wait() and (tick() - v116 < 2 and (v_u_112 and (v_u_112.Parent and not v_u_113))) do
+                            v115 = v115 + 0.36
+                            v117 = v117 + 0.15
+                            v_u_112:SetAttribute("Aerial", v117)
+                            v_u_112:SetAttribute("Speed", v115)
+                        end
+                    end
+                end)
+                v_u_112.Parent = v_u_6
+                v_u_79 = { v_u_112, v_u_110 }
+                task.delay(3, function()
+                    -- upvalues: (copy) v_u_112, (copy) v_u_110
+                    v_u_112:Destroy()
+                    v_u_110:Destroy()
+                end)
+                tick()
+                task.delay(1.375, function()
+                    -- upvalues: (ref) v_u_113, (copy) v_u_112
+                    v_u_113 = true
+                    v_u_112:SetAttribute("Speed", 10)
+                    v_u_112:SetAttribute("End", 1)
+                    v_u_112:SetAttribute("Fallout", 0.97)
+                end)
+                p_u_107:GetMarkerReachedSignal("throw"):Once(function()
+                    -- upvalues: (ref) v_u_79
+                    local v118 = v_u_79
+                    local v119 = rawget(v118, 1)
+                    if v119 then
+                        v119:Destroy()
+                    end
+                    local v120 = v_u_79
+                    local v121 = rawget(v120, 2)
+                    if v121 then
+                        v121:Destroy()
+                    end
+                    shared.repfire({
+                        ["Effect"] = "Velocity Forward",
+                        ["Distance"] = -75,
+                        ["Time"] = 0.15
+                    })
+                end)
+            end
+            if tonumber(v109) == 10480796021 or tonumber(v109) == 10480793962 then
+                local v122 = workspace:GetAttribute("TeleportDash")
+                if workspace:GetAttribute("EffectAffects") ~= 1 and workspace:GetAttribute("VIPServerOwner") ~= v_u_3.Name then
+                    v122 = nil
+                end
+                local v123 = v_u_3:GetAttribute("AfterimageDash")
+                if v123 and v123 > 0 or v122 then
+                    local v124 = {}
+                    for _, v125 in pairs(v_u_3:GetDescendants()) do
+                        if v125:IsA("BasePart") or v125:IsA("Decal") then
+                            local v126 = { v125, v125.Transparency }
+                            table.insert(v124, v126)
+                            v125.Transparency = 1
+                        end
+                    end
+                end
+            else
+                if tonumber(v109) == 14351441234 then
+                    if not v_u_83 then
+                        v_u_83 = p_u_107:GetMarkerReachedSignal("jump"):Connect(function()
+                            shared.repfire({
+                                ["Effect"] = "Velocity Forward",
+                                ["Distance"] = 75,
+                                ["Up"] = 25
+                            })
+                        end)
+                        return
+                    end
+                elseif tonumber(v109) == 15134211820 then
+                    if not v_u_76 then
+                        v_u_76 = p_u_107:GetMarkerReachedSignal("jump"):Connect(function()
+                            shared.repfire({
+                                ["Effect"] = "Velocity Forward",
+                                ["Distance"] = 49,
+                                ["Last"] = 0.3854,
+                                ["Up"] = 35
+                            })
+                        end)
+                        return
+                    end
+                else
+                    if tonumber(v109) == 17857788598 then
+                        local v_u_127 = shared.repfire({
+                            ["Effect"] = "Velocity Forward",
+                            ["Distance"] = 0,
+                            ["Time"] = 1.4,
+                            ["Up"] = 3
+                        })
+                        local v_u_128
+                        if v_u_49({
+                            ["orig"] = v_u_6.Position,
+                            ["dir"] = Vector3.new(0, -15, 0)
+                        }) then
+                            v_u_128 = 1.3
+                        else
+                            game:GetService("Debris"):AddItem(v_u_127, 0.3)
+                            v_u_128 = 1.1
+                        end
+                        local v_u_129 = tick()
+                        local v_u_130 = nil
+                        v_u_130 = shared.loop(function()
+                            -- upvalues: (copy) v_u_127, (copy) v_u_129, (ref) v_u_3, (ref) v_u_130, (ref) v_u_128
+                            if not v_u_127 or (not v_u_127.Parent or (tick() - v_u_129 > 5 or v_u_3:FindFirstChild("cancelledwd"))) then
+                                if v_u_127 and v_u_127.Parent then
+                                    v_u_127:Destroy()
+                                end
+                                return v_u_130()
+                            end
+                            if v_u_128 >= 1 then
+                                local v131 = v_u_127
+                                local v132 = v_u_128
+                                v131.Velocity = v131.Velocity * Vector3.new(1, v132, 1)
+                            else
+                                local v133 = v_u_127
+                                v133.Velocity = v133.Velocity * v_u_128
+                            end
+                            v_u_128 = v_u_128 * 0.99
+                        end, 60)
+                        return
+                    end
+                    if tonumber(v109) == 16571461202 then
+                        local v_u_134 = shared.repfire({
+                            ["Effect"] = "Velocity Forward",
+                            ["Distance"] = 0,
+                            ["Time"] = 1.4,
+                            ["Up"] = 3
+                        })
+                        local v_u_135 = 1.3
+                        local v_u_136 = tick()
+                        local v_u_137 = nil
+                        v_u_137 = shared.loop(function()
+                            -- upvalues: (copy) v_u_134, (copy) v_u_136, (ref) v_u_137, (ref) v_u_135
+                            if not v_u_134 or (not v_u_134.Parent or tick() - v_u_136 > 5) then
+                                return v_u_137()
+                            end
+                            if v_u_135 >= 1 then
+                                local v138 = v_u_134
+                                local v139 = v_u_135
+                                v138.Velocity = v138.Velocity * Vector3.new(1, v139, 1)
+                            else
+                                local v140 = v_u_134
+                                v140.Velocity = v140.Velocity * v_u_135
+                            end
+                            v_u_135 = v_u_135 * 0.99
+                        end, 60)
+                        return
+                    end
+                    if tonumber(v109) == 137561511768861 then
+                        if not kdona10 then
+                            kdona10 = true
+                            p_u_107:GetMarkerReachedSignal("jump"):Connect(function()
+                                -- upvalues: (ref) v_u_3
+                                local v_u_141 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 0,
+                                    ["Time"] = 1,
+                                    ["Up"] = 125
+                                })
+                                local v142 = Instance.new("Accessory")
+                                v142.Name = "BodyGyroBind"
+                                v142.Parent = v_u_3
+                                kdona10 = { v142, v_u_141 }
+                                game:GetService("Debris"):AddItem(v142, 2)
+                                local v143 = {
+                                    ["Effect"] = "BodyGyro",
+                                    ["Bind"] = v142,
+                                    ["Server"] = true,
+                                    ["char"] = v_u_3
+                                }
+                                shared.repfire(v143)
+                                local v_u_144 = tick()
+                                local v_u_145 = nil
+                                v_u_145 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_141, (copy) v_u_144, (ref) v_u_145
+                                    if not v_u_141 or (not v_u_141.Parent or tick() - v_u_144 > 5) then
+                                        return v_u_145()
+                                    end
+                                    local v146 = v_u_141
+                                    v146.Velocity = v146.Velocity * 0.935
+                                end, 60)
+                            end)
+                            p_u_107:GetMarkerReachedSignal("throw"):Connect(function()
+                                if kdona10 then
+                                    for _, v147 in pairs(kdona10) do
+                                        v147:Destroy()
+                                    end
+                                end
+                                shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = -75,
+                                    ["Time"] = 0.15
+                                })
+                            end)
+                            return
+                        end
+                    elseif tonumber(v109) == 137107506384354 then
+                        if not kdona11 then
+                            kdona11 = true
+                            p_u_107:GetMarkerReachedSignal("jump"):Connect(function()
+                                -- upvalues: (ref) v_u_3
+                                local v_u_148 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 0,
+                                    ["Time"] = 1,
+                                    ["Up"] = 165
+                                })
+                                local v149 = Instance.new("Accessory")
+                                v149.Name = "BodyGyroBind"
+                                v149.Parent = v_u_3
+                                kdona11 = { v149, v_u_148 }
+                                game:GetService("Debris"):AddItem(v149, 2)
+                                local v150 = {
+                                    ["Effect"] = "BodyGyro",
+                                    ["Bind"] = v149,
+                                    ["Server"] = true,
+                                    ["char"] = v_u_3
+                                }
+                                shared.repfire(v150)
+                                local v_u_151 = tick()
+                                local v_u_152 = nil
+                                v_u_152 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_148, (copy) v_u_151, (ref) v_u_152
+                                    if not v_u_148 or (not v_u_148.Parent or tick() - v_u_151 > 5) then
+                                        return v_u_152()
+                                    end
+                                    local v153 = v_u_148
+                                    v153.Velocity = v153.Velocity * 0.935
+                                end, 60)
+                            end)
+                            p_u_107:GetMarkerReachedSignal("throw"):Connect(function()
+                                if kdona11 then
+                                    for _, v154 in pairs(kdona11) do
+                                        v154:Destroy()
+                                    end
+                                end
+                                shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = -75,
+                                    ["Time"] = 0.15
+                                })
+                            end)
+                            return
+                        end
+                    else
+                        if tonumber(v109) == 138184061311700 then
+                            task.delay(0.622, function()
+                                -- upvalues: (ref) v_u_3
+                                local v_u_155 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 40,
+                                    ["Time"] = 5,
+                                    ["Up"] = 1500
+                                })
+                                for _, v156 in pairs({
+                                    1.267,
+                                    1.433,
+                                    1.667,
+                                    1.85
+                                }) do
+                                    task.delay(v156 - 0.622, function()
+                                        -- upvalues: (ref) v_u_3, (copy) v_u_155
+                                        local v157 = {
+                                            ["Effect"] = "HeadFirst",
+                                            ["char"] = v_u_3,
+                                            ["Kick"] = true,
+                                            ["Weld"] = true
+                                        }
+                                        shared.repfire(v157)
+                                        local v158 = v_u_155
+                                        v158.Velocity = v158.Velocity + Vector3.new(0, 125, 0)
+                                    end)
+                                end
+                                local v_u_159 = 1
+                                local v_u_160 = tick()
+                                local v_u_161 = nil
+                                v_u_161 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_155, (copy) v_u_160, (ref) v_u_161, (ref) v_u_159
+                                    if not v_u_155 or (not v_u_155.Parent or tick() - v_u_160 > 5) then
+                                        return v_u_161()
+                                    end
+                                    local v162 = v_u_155
+                                    v162.Velocity = v162.Velocity * v_u_159
+                                    local v163 = v_u_159 * 0.995
+                                    v_u_159 = math.clamp(v163, 0.955, 1)
+                                end, 60)
+                            end)
+                            return
+                        end
+                        if tonumber(v109) == 91353107056596 then
+                            local v164 = Instance.new("BodyVelocity")
+                            v164.Name = "moveme"
+                            v164:SetAttribute("StunCheck", true)
+                            v164.MaxForce = Vector3.new(90000, 0, 90000)
+                            v164:SetAttribute("Speed", 95)
+                            v164:SetAttribute("End", 1)
+                            v164:SetAttribute("Fallout", 0.94)
+                            v164.Parent = v_u_6
+                            game.Debris:AddItem(v164, 2)
+                            local v165 = Instance.new("BodyVelocity")
+                            v165:SetAttribute("StunCheck", true)
+                            v165.Velocity = Vector3.new(0, 50, 0)
+                            v165.MaxForce = Vector3.new(0, 90000, 0)
+                            v165.Parent = v_u_3.Torso
+                            game:GetService("Debris"):AddItem(v165, 0.15)
+                            blbv = { v164, v165 }
+                            return
+                        end
+                        if tonumber(v109) == 140620736290884 then
+                            local v_u_166 = Instance.new("BodyVelocity")
+                            local v_u_167 = v_u_6.AssemblyLinearVelocity
+                            v_u_166.MaxForce = Vector3.new(40000, 40000, 40000)
+                            v_u_166.Velocity = v_u_167
+                            v_u_166.Parent = v_u_3.Torso
+                            local v_u_168 = 125
+                            local v_u_169 = tick()
+                            local v_u_170 = nil
+                            v_u_170 = shared.loop(function()
+                                -- upvalues: (copy) v_u_166, (copy) v_u_169, (copy) p_u_107, (ref) v_u_170, (ref) v_u_167, (ref) v_u_168
+                                if not v_u_166 or (not v_u_166.Parent or (tick() - v_u_169 > 5 or not p_u_107.IsPlaying)) then
+                                    if v_u_166.Parent then
+                                        v_u_166:Destroy()
+                                    end
+                                    return v_u_170()
+                                end
+                                v_u_167 = v_u_167 * 0.94
+                                v_u_168 = v_u_168 * 0.92
+                                local v171 = v_u_168
+                                v_u_166.Velocity = v_u_167 + Vector3.new(0, v171, 0)
+                            end, 60)
+                            return
+                        end
+                        if tonumber(v109) == 105616370132258 and not mechliftdone then
+                            mechliftdone = true
+                            p_u_107:GetMarkerReachedSignal("lift"):Connect(function()
+                                -- upvalues: (ref) v_u_3
+                                local v_u_172 = Instance.new("BodyVelocity")
+                                v_u_172.Velocity = Vector3.new(0, 200, 0)
+                                v_u_172.MaxForce = Vector3.new(0, 90000, 0)
+                                v_u_172.Parent = v_u_3.Torso
+                                game.Debris:AddItem(v_u_172, 5)
+                                local v_u_173 = tick()
+                                local v_u_174 = nil
+                                v_u_174 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_172, (copy) v_u_173, (ref) v_u_174
+                                    if not v_u_172 or (not v_u_172.Parent or tick() - v_u_173 > 5) then
+                                        return v_u_174()
+                                    end
+                                    local v175 = v_u_172.Velocity.Y * 0.975
+                                    local v176 = math.clamp(v175, -100, 100)
+                                    v_u_172.Velocity = Vector3.new(0, v176, 0)
+                                    if v176 <= 0.1 then
+                                        v_u_172:Destroy()
+                                    end
+                                end, 60)
+                            end)
+                            return
+                        end
+                        if tonumber(v109) == 71852503410610 then
+                            if blbv then
+                                for _, v177 in pairs(blbv) do
+                                    v177:Destroy()
+                                end
+                            end
+                            local v_u_178 = Instance.new("BodyVelocity")
+                            v_u_178.Velocity = Vector3.new(0, 75, 0)
+                            v_u_178.MaxForce = Vector3.new(0, 90000, 0)
+                            v_u_178.Parent = v_u_3.Torso
+                            v_u_178:SetAttribute("StunCheck", true)
+                            game.Debris:AddItem(v_u_178, 4)
+                            local v_u_179 = tick()
+                            local v_u_180 = 0.94
+                            local function v_u_182()
+                                -- upvalues: (ref) v_u_3
+                                for _, v181 in pairs(v_u_3:GetChildren()) do
+                                    if tostring(v181) == "Freeze" and not v181:GetAttribute("Allowed") then
+                                        return true
+                                    end
+                                end
+                            end
+                            local v_u_183 = Instance.new("Accessory")
+                            v_u_183.Name = "BodyGyroBind"
+                            v_u_183:SetAttribute("StunCheck", true)
+                            v_u_183.Parent = v_u_3
+                            local v_u_184 = nil
+                            v_u_184 = shared.loop(function()
+                                -- upvalues: (copy) v_u_178, (copy) v_u_179, (ref) v_u_184, (ref) v_u_3, (copy) v_u_182, (copy) v_u_183, (ref) v_u_180
+                                if not v_u_178 or (not v_u_178.Parent or tick() - v_u_179 > 5) then
+                                    return v_u_184()
+                                end
+                                if v_u_3:FindFirstChild("Ragdoll") or v_u_182() then
+                                    if v_u_178 then
+                                        v_u_178:Destroy()
+                                    end
+                                    if v_u_183 then
+                                        v_u_183:Destroy()
+                                    end
+                                    for _, v185 in pairs(blbv) do
+                                        v185:Destroy("")
+                                    end
+                                    warn("da")
+                                    return v_u_184()
+                                end
+                                local v186 = v_u_178.Velocity.Y * v_u_180
+                                local v187 = math.clamp(v186, -100, 100)
+                                if v187 <= 2 then
+                                    v_u_180 = 1
+                                    v187 = v187 - 0.4
+                                end
+                                v_u_178.Velocity = Vector3.new(0, v187, 0)
+                            end, 60)
+                            task.delay(5, function()
+                                -- upvalues: (ref) v_u_184
+                                if v_u_184 then
+                                    v_u_184()
+                                end
+                            end)
+                            local v188 = {
+                                ["Effect"] = "BodyGyro",
+                                ["Bind"] = v_u_183,
+                                ["Server"] = true,
+                                ["char"] = v_u_3
+                            }
+                            shared.repfire(v188)
+                            local v189 = v_u_3:WaitForChild("blfired", 3.765)
+                            v_u_178:Destroy()
+                            v_u_183:Destroy()
+                            if v189 then
+                                local v190 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = -125,
+                                    ["Time"] = 0.15,
+                                    ["StunCheck"] = true
+                                })
+                                v190.MaxForce = Vector3.new(40000, 20000, 40000)
+                                local v191 = blbv
+                                table.insert(v191, v190)
+                            end
+                            return
+                        end
+                        if tonumber(v109) == 17860467628 then
+                            local v_u_192 = Instance.new("Accessory")
+                            v_u_192.Name = "BodyGyroBind"
+                            v_u_192.Parent = v_u_3
+                            local v193 = {
+                                ["Effect"] = "BodyGyro",
+                                ["Bind"] = v_u_192,
+                                ["Server"] = true,
+                                ["char"] = v_u_3
+                            }
+                            shared.repfire(v193)
+                            local v_u_194 = Instance.new("BodyVelocity")
+                            v_u_194.Name = "moveme"
+                            v_u_194.MaxForce = Vector3.new(90000, 90000, 90000)
+                            v_u_194:SetAttribute("Speed", 1)
+                            v_u_194:SetAttribute("End", 0)
+                            v_u_194:SetAttribute("Goto", 1)
+                            v_u_194:SetAttribute("Fallout", 0.98)
+                            v_u_194.Parent = v_u_6
+                            v_u_79 = { v_u_194, v_u_192 }
+                            task.delay(10, function()
+                                -- upvalues: (copy) v_u_194, (copy) v_u_192
+                                v_u_194:Destroy()
+                                v_u_192:Destroy()
+                            end)
+                            if not kdone512 then
+                                kdone512 = true
+                                p_u_107:GetMarkerReachedSignal("fly"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    v_u_79[1]:SetAttribute("Speed", 250)
+                                    v_u_79[1]:SetAttribute("Goto", 120)
+                                    v_u_79[1]:SetAttribute("alrdone", true)
+                                end)
+                                p_u_107:GetMarkerReachedSignal("stop"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    v_u_79[1]:SetAttribute("Goto", nil)
+                                    v_u_79[1]:SetAttribute("Fallout", 0.945)
+                                    v_u_79[1]:SetAttribute("End", 15)
+                                    v_u_79[1]:GetPropertyChangedSignal("Parent"):Connect(function()
+                                        -- upvalues: (ref) v_u_79
+                                        v_u_79[2]:Destroy()
+                                    end)
+                                end)
+                                v_u_3:GetAttributeChangedSignal("EPReset3"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    if v_u_79 then
+                                        local v195 = v_u_79
+                                        local v196 = rawget(v195, 1)
+                                        if v196 and not v196:GetAttribute("alrdone") then
+                                            v196:SetAttribute("Speed", 250)
+                                            v196:SetAttribute("Goto", 120)
+                                        end
+                                    end
+                                end)
+                                v_u_3:GetAttributeChangedSignal("EPReset2"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    if v_u_79 then
+                                        local v197 = v_u_79
+                                        local v198 = rawget(v197, 1)
+                                        if v198 then
+                                            if v198:GetAttribute("Speed") <= 120 then
+                                                v198:SetAttribute("Speed", 120)
+                                            end
+                                            v198:SetAttribute("Fallout", 0.925)
+                                            v198:SetAttribute("Goto", nil)
+                                        end
+                                    end
+                                end)
+                                v_u_3:GetAttributeChangedSignal("EPReset"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    if v_u_79 then
+                                        local v199 = v_u_79
+                                        local v200 = rawget(v199, 1)
+                                        if v200 then
+                                            v200:Destroy()
+                                        end
+                                        local v201 = v_u_79
+                                        local v202 = rawget(v201, 2)
+                                        if v202 then
+                                            v202:Destroy()
+                                        end
+                                    end
+                                end)
+                                return
+                            end
+                        elseif tonumber(v109) == 16597322398 then
+                            local v_u_203 = Instance.new("Accessory")
+                            v_u_203.Name = "BodyGyroBind"
+                            v_u_203.Parent = v_u_3
+                            local v204 = {
+                                ["Effect"] = "BodyGyro",
+                                ["Bind"] = v_u_203,
+                                ["Server"] = true,
+                                ["char"] = v_u_3
+                            }
+                            shared.repfire(v204)
+                            local v_u_205 = Instance.new("BodyVelocity")
+                            v_u_205.Name = "moveme"
+                            v_u_205.MaxForce = Vector3.new(90000, 90000, 90000)
+                            v_u_205:SetAttribute("Speed", 25)
+                            v_u_205:SetAttribute("End", 0)
+                            v_u_205:SetAttribute("Goto", 25)
+                            v_u_205:SetAttribute("Fallout", 0.98)
+                            v_u_205.Parent = v_u_6
+                            v_u_79 = { v_u_205, v_u_203 }
+                            task.delay(2, function()
+                                -- upvalues: (copy) v_u_205, (copy) v_u_203
+                                v_u_205:Destroy()
+                                v_u_203:Destroy()
+                            end)
+                            if not v_u_77 then
+                                v_u_77 = true
+                                p_u_107:GetMarkerReachedSignal("boost"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    v_u_79[1]:SetAttribute("Speed", 135)
+                                    v_u_79[1]:SetAttribute("Goto", nil)
+                                end)
+                                v_u_3:GetAttributeChangedSignal("EPReset2"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    if v_u_79 then
+                                        local v206 = v_u_79
+                                        local v207 = rawget(v206, 1)
+                                        if v207 then
+                                            v207:SetAttribute("Fallout", 0.85)
+                                        end
+                                    end
+                                end)
+                                v_u_3:GetAttributeChangedSignal("EPReset"):Connect(function()
+                                    -- upvalues: (ref) v_u_79
+                                    if v_u_79 then
+                                        local v208 = v_u_79
+                                        local v209 = rawget(v208, 1)
+                                        if v209 then
+                                            v209:Destroy()
+                                        end
+                                        local v210 = v_u_79
+                                        local v211 = rawget(v210, 2)
+                                        if v211 then
+                                            v211:Destroy()
+                                        end
+                                    end
+                                end)
+                                return
+                            end
+                        elseif tonumber(v109) == 16737255386 then
+                            local v212 = v_u_6:FindFirstChildOfClass("BodyVelocity")
+                            if v212 then
+                                v212:Destroy()
+                            end
+                            local v213 = {
+                                ["Effect"] = "Velocity Forward",
+                                ["Distance"] = 0,
+                                ["Time"] = 5,
+                                ["Alternate"] = v_u_26,
+                                ["Up"] = 0
+                            }
+                            v_u_78 = shared.repfire(v213)
+                            if not v_u_80 then
+                                v_u_80 = true
+                                p_u_107:GetMarkerReachedSignal("fly"):Connect(function()
+                                    -- upvalues: (ref) v_u_6, (ref) v_u_3, (ref) v_u_19
+                                    local v_u_214 = Instance.new("CFrameValue")
+                                    v_u_214.Value = v_u_6.CFrame
+                                    local v_u_216 = v_u_214:GetPropertyChangedSignal("Value"):Connect(function()
+                                        -- upvalues: (ref) v_u_6, (copy) v_u_214, (ref) v_u_3
+                                        local v215 = {
+                                            v_u_6.CFrame:GetComponents(),
+                                            v_u_214.Value.X,
+                                            v_u_214.Value.Y,
+                                            v_u_214.Value.Z
+                                        }
+                                        v_u_3:SetPrimaryPartCFrame(CFrame.new(unpack(v215)))
+                                    end)
+                                    v_u_19:Create(v_u_214, TweenInfo.new(0.85, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        ["Value"] = v_u_6.CFrame * CFrame.new(0, 44, 0)
+                                    }):Play()
+                                    task.delay(0.85, function()
+                                        -- upvalues: (copy) v_u_214, (copy) v_u_216
+                                        v_u_214:Destroy()
+                                        v_u_216:Disconnect()
+                                    end)
+                                end)
+                                v_u_3:GetAttributeChangedSignal("MeteorCheck"):Connect(function()
+                                    -- upvalues: (ref) v_u_78
+                                    if v_u_78 then
+                                        v_u_78:Destroy()
+                                        v_u_78 = nil
+                                    end
+                                end)
+                                return
+                            end
+                        elseif tonumber(v109) == 17799224866 then
+                            if not v_u_81 then
+                                v_u_81 = true
+                                local v_u_217 = nil
+                                p_u_107:GetMarkerReachedSignal("hit1"):Connect(function()
+                                    -- upvalues: (ref) v_u_6, (ref) v_u_217
+                                    local v218 = v_u_6:FindFirstChildOfClass("BodyVelocity")
+                                    if v218 then
+                                        game:GetService("Debris"):AddItem(v218, 0)
+                                        v218:Destroy()
+                                    end
+                                    v_u_217 = shared.repfire({
+                                        ["Effect"] = "Velocity Forward",
+                                        ["Distance"] = 57,
+                                        ["Time"] = 0.4,
+                                        ["Up"] = 35
+                                    })
+                                    local v_u_219 = v_u_217
+                                    local v_u_220 = tick()
+                                    local v_u_221 = nil
+                                    v_u_221 = shared.loop(function()
+                                        -- upvalues: (copy) v_u_219, (copy) v_u_220, (ref) v_u_221
+                                        if not v_u_219 or (not v_u_219.Parent or tick() - v_u_220 > 5) then
+                                            return v_u_221()
+                                        end
+                                        local v222 = v_u_219
+                                        v222.Velocity = v222.Velocity * 0.875
+                                    end, 60)
+                                end)
+                                p_u_107:GetMarkerReachedSignal("hit2"):Connect(function()
+                                    -- upvalues: (ref) v_u_217
+                                    if v_u_217 then
+                                        v_u_217:Destroy()
+                                    end
+                                    v_u_217 = shared.repfire({
+                                        ["Effect"] = "Velocity Forward",
+                                        ["Distance"] = 57,
+                                        ["Last"] = 0.15,
+                                        ["Up"] = 105
+                                    })
+                                    local v_u_223 = v_u_217
+                                    local v_u_224 = tick()
+                                    local v_u_225 = nil
+                                    v_u_225 = shared.loop(function()
+                                        -- upvalues: (copy) v_u_223, (copy) v_u_224, (ref) v_u_225
+                                        if not v_u_223 or (not v_u_223.Parent or tick() - v_u_224 > 5) then
+                                            return v_u_225()
+                                        end
+                                        local v226 = v_u_223
+                                        v226.Velocity = v226.Velocity * 0.875
+                                    end, 60)
+                                end)
+                                p_u_107:GetMarkerReachedSignal("hit3"):Connect(function()
+                                    -- upvalues: (ref) v_u_217
+                                    if v_u_217 then
+                                        v_u_217:Destroy()
+                                    end
+                                    v_u_217 = shared.repfire({
+                                        ["Effect"] = "Velocity Forward",
+                                        ["Distance"] = 19,
+                                        ["Time"] = 1,
+                                        ["Up"] = 40
+                                    })
+                                    local v_u_227 = v_u_217
+                                    local v_u_228 = tick()
+                                    local v_u_229 = nil
+                                    v_u_229 = shared.loop(function()
+                                        -- upvalues: (copy) v_u_227, (copy) v_u_228, (ref) v_u_229
+                                        if not v_u_227 or (not v_u_227.Parent or tick() - v_u_228 > 5) then
+                                            return v_u_229()
+                                        end
+                                        local v230 = v_u_227
+                                        v230.Velocity = v230.Velocity * 0.96
+                                    end, 60)
+                                end)
+                                p_u_107:GetMarkerReachedSignal("hit4"):Connect(function()
+                                    -- upvalues: (ref) v_u_217
+                                    if v_u_217 then
+                                        v_u_217:Destroy()
+                                    end
+                                    v_u_217 = shared.repfire({
+                                        ["Effect"] = "Velocity Forward",
+                                        ["Distance"] = 0,
+                                        ["Time"] = 0.15,
+                                        ["Up"] = 100
+                                    })
+                                    local v_u_231 = v_u_217
+                                    local v_u_232 = tick()
+                                    local v_u_233 = nil
+                                    v_u_233 = shared.loop(function()
+                                        -- upvalues: (copy) v_u_231, (copy) v_u_232, (ref) v_u_233
+                                        if not v_u_231 or (not v_u_231.Parent or tick() - v_u_232 > 5) then
+                                            return v_u_233()
+                                        end
+                                        local v234 = v_u_231
+                                        v234.Velocity = v234.Velocity * 0.875
+                                    end, 60)
+                                end)
+                                return
+                            end
+                        elseif tonumber(v109) == 15145462680 and not v_u_82 then
+                            v_u_82 = true
+                            local v_u_235 = nil
+                            p_u_107:GetMarkerReachedSignal("hit1"):Connect(function()
+                                -- upvalues: (ref) v_u_6, (ref) v_u_235
+                                local v236 = v_u_6:FindFirstChildOfClass("BodyVelocity")
+                                if v236 then
+                                    game:GetService("Debris"):AddItem(v236, 0)
+                                    v236:Destroy()
+                                end
+                                v_u_235 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 57,
+                                    ["Last"] = 0.15,
+                                    ["Up"] = 105
+                                })
+                                local v_u_237 = v_u_235
+                                local v_u_238 = tick()
+                                local v_u_239 = nil
+                                v_u_239 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_237, (copy) v_u_238, (ref) v_u_239
+                                    if not v_u_237 or (not v_u_237.Parent or tick() - v_u_238 > 5) then
+                                        return v_u_239()
+                                    end
+                                    local v240 = v_u_237
+                                    v240.Velocity = v240.Velocity * 0.875
+                                end, 60)
+                            end)
+                            p_u_107:GetMarkerReachedSignal("hit2"):Connect(function()
+                                -- upvalues: (ref) v_u_235
+                                if v_u_235 then
+                                    v_u_235:Destroy()
+                                end
+                                v_u_235 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 57,
+                                    ["Last"] = 0.15,
+                                    ["Up"] = 105
+                                })
+                                local v_u_241 = v_u_235
+                                local v_u_242 = tick()
+                                local v_u_243 = nil
+                                v_u_243 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_241, (copy) v_u_242, (ref) v_u_243
+                                    if not v_u_241 or (not v_u_241.Parent or tick() - v_u_242 > 5) then
+                                        return v_u_243()
+                                    end
+                                    local v244 = v_u_241
+                                    v244.Velocity = v244.Velocity * 0.875
+                                end, 60)
+                            end)
+                            p_u_107:GetMarkerReachedSignal("hit3"):Connect(function()
+                                -- upvalues: (ref) v_u_235
+                                if v_u_235 then
+                                    v_u_235:Destroy()
+                                end
+                                v_u_235 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 19,
+                                    ["Time"] = 1,
+                                    ["Up"] = 40
+                                })
+                                local v_u_245 = v_u_235
+                                local v_u_246 = tick()
+                                local v_u_247 = nil
+                                v_u_247 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_245, (copy) v_u_246, (ref) v_u_247
+                                    if not v_u_245 or (not v_u_245.Parent or tick() - v_u_246 > 5) then
+                                        return v_u_247()
+                                    end
+                                    local v248 = v_u_245
+                                    v248.Velocity = v248.Velocity * 0.96
+                                end, 60)
+                            end)
+                            p_u_107:GetMarkerReachedSignal("final"):Connect(function()
+                                -- upvalues: (ref) v_u_235
+                                if v_u_235 then
+                                    v_u_235:Destroy()
+                                end
+                                v_u_235 = shared.repfire({
+                                    ["Effect"] = "Velocity Forward",
+                                    ["Distance"] = 0,
+                                    ["Time"] = 0.15,
+                                    ["Up"] = 100
+                                })
+                                local v_u_249 = v_u_235
+                                local v_u_250 = tick()
+                                local v_u_251 = nil
+                                v_u_251 = shared.loop(function()
+                                    -- upvalues: (copy) v_u_249, (copy) v_u_250, (ref) v_u_251
+                                    if not v_u_249 or (not v_u_249.Parent or tick() - v_u_250 > 5) then
+                                        return v_u_251()
+                                    end
+                                    local v252 = v_u_249
+                                    v252.Velocity = v252.Velocity * 0.875
+                                end, 60)
+                            end)
+                        end
+                    end
+                end
+                return
+            end
+        else
+            return
+        end
+    else
+        return
+    end
+end
+for _, v254 in pairs(v_u_5:GetPlayingAnimationTracks()) do
+    v253(v254)
+end
+v_u_5.AnimationPlayed:connect(v253)
+local v_u_255 = v_u_32(7815618175)
+v_u_13.walk.WalkAnim.AnimationId = "rbxassetid://7807831448"
+v_u_13:WaitForChild("toolnone", 5)
+task.delay(0.01, function()
+    -- upvalues: (copy) v_u_13
+    for _, v256 in pairs(v_u_13.idle:GetChildren()) do
+        v256.AnimationId = "rbxassetid://14516273501"
+    end
+end)
+local v257 = shared
+local v258 = v64({
+    ["Name"] = "ModifyBodyMoverSpeed"
+})
+local v_u_259 = v257[tostring(v258) .. ""]
+local function v_u_302(p_u_260, p261, p262)
+    -- upvalues: (copy) v_u_3, (ref) v_u_47, (copy) v_u_32, (ref) v_u_45, (copy) v_u_6, (copy) v_u_5, (copy) v_u_259, (copy) v_u_8
+    if v_u_3:FindFirstChild("MechDash") then
+        return
+    else
+        local v_u_263 = 0
+        local v264 = v_u_47
+        local v_u_265 = 5
+        v_u_47 = false
+        if v_u_3:FindFirstChild("RootAnchor") and not p262 then
+            return
+        else
+            local v266 = v_u_3:GetAttribute("InMech") and true or false
+            local v267 = v_u_32(10480793962)
+            v_u_45 = tick()
+            if p_u_260 ~= Enum.KeyCode.W then
+                if p_u_260 == Enum.KeyCode.A then
+                    v267 = v_u_32(10480796021)
+                    v_u_263 = 90
+                elseif p_u_260 == Enum.KeyCode.D then
+                    v_u_263 = -90
+                elseif p_u_260 == Enum.KeyCode.S then
+                    v267 = v_u_32(10491993682)
+                    v_u_265 = 10
+                    v_u_263 = 180
+                end
+                if v266 then
+                    local v_u_268 = Instance.new("Accessory")
+                    v_u_268.Name = "MechDash"
+                    v_u_268.Parent = v_u_3
+                    local v269 = Instance.new("Attachment")
+                    v269.Parent = v_u_6
+                    v269.CFrame = CFrame.new(0, 7, 0)
+                    local v270 = Instance.new("Attachment")
+                    v270.Parent = v_u_6
+                    v270.CFrame = CFrame.new(0, -2, 0)
+                    for _, v271 in pairs({ v269, v270 }) do
+                        game.Debris:AddItem(v271, 4)
+                    end
+                    local v_u_272 = {}
+                    local function v276(p273)
+                        -- upvalues: (copy) v_u_272
+                        local v274 = shared.sfx({
+                            ["SoundId"] = p273.id,
+                            ["Volume"] = p273.vol + 0.5,
+                            ["Parent"] = p273.parent
+                        })
+                        v274:Play("")
+                        local v275 = v_u_272
+                        table.insert(v275, v274)
+                    end
+                    if p_u_260 == Enum.KeyCode.S then
+                        v_u_268:SetAttribute("Back", true)
+                        v276({
+                            ["id"] = "rbxassetid://84635846516357",
+                            ["vol"] = 3,
+                            ["parent"] = v269
+                        })
+                        v276({
+                            ["id"] = "rbxassetid://116814554347690",
+                            ["vol"] = 2,
+                            ["parent"] = v269
+                        })
+                    else
+                        v276({
+                            ["id"] = "rbxassetid://99016723872936",
+                            ["vol"] = 3,
+                            ["parent"] = v269
+                        })
+                        v276({
+                            ["id"] = "rbxassetid://123346477450360",
+                            ["vol"] = 2,
+                            ["parent"] = v269
+                        })
+                    end
+                    task.spawn(function()
+                        -- upvalues: (copy) p_u_260, (ref) v_u_3, (copy) v_u_268
+                        local v277 = {
+                            ["Name"] = p_u_260 == Enum.KeyCode.A and "Left" or (p_u_260 == Enum.KeyCode.D and "Right" or "Back"),
+                            ["Type"] = "MechDashMovement",
+                            ["Char"] = v_u_3,
+                            ["bind"] = v_u_268
+                        }
+                        shared.repfire(v277)
+                    end)
+                    local v278 = v_u_3:FindFirstChild("Mech"):FindFirstChildOfClass("AnimationController")
+                    local v279 = {
+                        [Enum.KeyCode.D] = 136759667129066,
+                        [Enum.KeyCode.S] = 95003985042679,
+                        [Enum.KeyCode.A] = 120527946309380
+                    }
+                    if not workspace:GetAttribute("mechprel2") then
+                        workspace:SetAttribute("mecprel2", true)
+                        for _, v280 in pairs(v279) do
+                            local v281 = Instance.new("Animation")
+                            v281.AnimationId = "rbxassetid://" .. tostring(v280)
+                            local v282 = v278:LoadAnimation(v281)
+                            v282:Play(0)
+                            v282:Stop(0)
+                            v281:Destroy("")
+                        end
+                    end
+                    local v283 = Instance.new("Animation")
+                    local v284 = v279[p_u_260]
+                    v283.AnimationId = "rbxassetid://" .. tostring(v284)
+                    game:GetService("Debris"):AddItem(v283, 1.5)
+                    for _, v285 in pairs(v278:GetPlayingAnimationTracks()) do
+                        v285:Stop(0)
+                    end
+                    local v_u_286 = v278:LoadAnimation(v283)
+                    Instance.new("BodyVelocity")
+                    local v_u_287 = Instance.new("BodyVelocity")
+                    v_u_287:SetAttribute("Ohio", true)
+                    v_u_287.Name = "moveme"
+                    v_u_287.MaxForce = Vector3.new(40000, 0, 40000)
+                    if p_u_260 == Enum.KeyCode.S then
+                        v_u_287:SetAttribute("Speed", 180)
+                        v_u_287:SetAttribute("Fallout", 0.935)
+                        v_u_287:SetAttribute("End", 15)
+                        v_u_287:SetAttribute("Inverted", true)
+                        task.delay(0.5, function()
+                            -- upvalues: (ref) v_u_287, (copy) v_u_268
+                            v_u_287:SetAttribute("Speed", 120)
+                            v_u_287:SetAttribute("End", 7)
+                            v_u_287:SetAttribute("Fallout", 0.9475)
+                            local v288 = tick()
+                            while task.wait(0.065) and (tick() - v288 < 0.65 and (v_u_268 and v_u_268.Parent)) do
+                                shared.addshake(1)
+                            end
+                        end)
+                    else
+                        v_u_287:SetAttribute("Speed", 125)
+                        v_u_287:SetAttribute("Fallout", 0.961)
+                        v_u_287:SetAttribute("End", 15)
+                        v_u_287:SetAttribute("Direction", p_u_260 == Enum.KeyCode.A and "Left" or "Right")
+                        task.delay(0.55, function()
+                            -- upvalues: (ref) v_u_286, (ref) v_u_287, (copy) v_u_268
+                            if v_u_286.IsPlaying then
+                                v_u_287:SetAttribute("Speed", 100)
+                                v_u_287:SetAttribute("End", 7)
+                                v_u_287:SetAttribute("Fallout", 0.9565)
+                                local v289 = tick()
+                                while task.wait(0.065) and (tick() - v289 < 0.45 and (v_u_268 and v_u_268.Parent)) do
+                                    shared.addshake(1.35)
+                                end
+                            end
+                        end)
+                    end
+                    v_u_287.Parent = v_u_6
+                    local v_u_290 = nil
+                    v_u_290 = v_u_268.Destroying:Once(function()
+                        -- upvalues: (copy) v_u_272, (ref) v_u_290, (ref) v_u_287, (ref) v_u_286
+                        for _, v291 in pairs(v_u_272) do
+                            if v291 and v291.Parent then
+                                game:GetService("TweenService"):Create(v291, TweenInfo.new(0.325), {
+                                    ["Volume"] = 0
+                                }):Play()
+                            end
+                        end
+                        if v_u_290 then
+                            v_u_290:Disconnect()
+                        end
+                        if v_u_287 and v_u_287.Parent then
+                            v_u_287:Destroy()
+                        end
+                        if v_u_286 then
+                            v_u_286:Stop(0)
+                        end
+                    end)
+                    task.delay(1.7, function()
+                        -- upvalues: (ref) v_u_290, (ref) v_u_287, (copy) v_u_268
+                        if v_u_290 then
+                            v_u_290:Disconnect()
+                        end
+                        if v_u_287 and v_u_287.Parent then
+                            v_u_287:Destroy()
+                        end
+                        if v_u_268 and v_u_268.Parent then
+                            v_u_268:Destroy("")
+                        end
+                    end)
+                    v_u_287:GetPropertyChangedSignal("MaxForce"):Once(function()
+                        -- upvalues: (ref) v_u_286
+                        if v_u_286 then
+                            v_u_286:Stop(0)
+                        end
+                    end)
+                    return v_u_286:Play()
+                end
+                local v292 = v_u_5.WalkSpeed
+                local v293 = v_u_3:FindFirstChild("DoingEmote") and 16 or v292
+                if v264 then
+                    v293 = v293 - 9
+                end
+                local v294 = p261 or v293 * 2.5
+                local v295 = math.clamp(v294, 0, 40) * (v_u_265 == 10 and 4 or 5)
+                if not v_u_3:GetAttribute("Ulted") then
+                    v295 = v295 - 60 * (1 - v_u_5.Health / v_u_5.MaxHealth)
+                end
+                local v_u_296 = { v295 }
+                local v_u_297 = { v_u_296[1] }
+                v_u_3:SetAttribute("_JustDashed", tick())
+                local v298 = v_u_6:FindFirstChildOfClass("BodyVelocity")
+                if v298 then
+                    v298:Destroy()
+                end
+                local v_u_299 = Instance.new("BodyVelocity")
+                v_u_299.Name = "dodgevelocity"
+                v_u_299.MaxForce = Vector3.new(50000, 0, 50000)
+                if v_u_3:FindFirstChild("Slowed") then
+                    v_u_299.MaxForce = Vector3.new(10000, 0, 10000)
+                end
+                v_u_299.Parent = v_u_6
+                v267:Play()
+                local v_u_300 = nil
+                if v267 then
+                    local _ = v267.Stopped:Connect(function()
+                        -- upvalues: (copy) v_u_299, (ref) v_u_300
+                        v_u_299:Destroy()
+                        return v_u_300:Disconnect()
+                    end)
+                end
+                local v_u_301 = nil
+                v_u_301 = shared.loop(function()
+                    -- upvalues: (ref) v_u_259, (copy) v_u_299, (ref) v_u_301, (ref) v_u_6, (ref) v_u_8, (ref) v_u_296, (ref) v_u_263, (ref) v_u_265, (copy) v_u_297
+                    v_u_259(v_u_299, v_u_301, v_u_6, v_u_8, v_u_296, v_u_263, v_u_265, v_u_297)
+                end)
+            end
+        end
+    end
+end
+v_u_32(13379404053)
+local v_u_303 = game:GetService("SoundService").Sounds
+local v_u_304 = nil
+local v_u_305 = 0
+v_u_5:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
+v_u_50 = function(p306)
+    -- upvalues: (ref) v_u_305, (copy) v_u_39, (ref) v_u_46, (copy) v_u_2, (copy) v_u_3, (ref) v_u_304, (ref) v_u_69, (copy) v_u_67, (copy) v_u_68, (ref) v_u_22, (ref) v_u_23, (ref) v_u_17, (copy) v_u_11, (ref) v_u_47, (ref) v_u_48, (copy) v_u_255, (copy) v_u_32, (copy) v_u_10, (ref) v_u_25, (copy) v_u_5, (copy) v_u_303, (copy) v_u_19, (copy) v_u_43
+    if tick() - v_u_305 > 5 then
+        v_u_305 = tick()
+        v_u_39({
+            ["Goal"] = "PingCheck",
+            ["Time"] = workspace:GetServerTimeNow()
+        })
+    end
+    if p306 == "JustEvasived" then
+        v_u_46 = tick()
+        if v_u_2.Name == "22freshfrenchfries" then
+            warn("UPDATED TO ACTUAL CD")
+        end
+    end
+    if p306 == "SideDashDisable" and v_u_3:GetAttribute("SideDashDisable") == true then
+        v_u_3:SetAttribute("SideDashDisable", tick())
+    end
+    if not v_u_304 then
+        v_u_304 = workspace.Thrown:FindFirstChild("Donation Leaderboard")
+        v_u_304 = not v_u_304 or v_u_304:FindFirstChild("a")
+        if not v_u_304 then
+            v_u_304 = nil
+        end
+    end
+    local v307 = 16
+    local v308 = 50
+    local v309 = v_u_3:GetAttribute("WSDecrease")
+    if v309 then
+        local v310 = v307 - v309
+        v307 = v310 < 0 and 0 or v310
+    end
+    v_u_69 = v_u_67 or (v_u_68 or v_u_2:GetAttribute("S_AutoRun"))
+    v_u_22 = v_u_3:FindFirstChild("Slowed")
+    v_u_23 = v_u_3:FindFirstChild("Freeze")
+    if p306 == "LastDamageDone" then
+        v_u_17 = 0
+    end
+    if v_u_17 > 0 and not workspace:GetAttribute("NoFatigue") then
+        local v311 = v308 - v_u_17 * 1
+        v308 = math.max(v311, 27)
+    end
+    game.StarterGui:SetCoreGuiEnabled(2, false)
+    local v312 = v_u_3:FindFirstChildOfClass("Tool")
+    if not v_u_11:Check(v_u_3, { "Run" }) or (v_u_3:FindFirstChild("StopRunning") or v312 and v312:FindFirstChild("Handle")) or v_u_3:FindFirstChild("CrabCamera") then
+        v_u_47 = false
+    end
+    if v_u_47 then
+        if v_u_3:GetAttribute("Ulted") or v_u_3:FindFirstChild("Counter") then
+            v307 = v307 + 7
+        end
+        local v313 = workspace:GetAttribute("SpeedMultiplier") or 1
+        v307 = v307 + 9 * (workspace:GetAttribute("EffectAffects") ~= 1 and workspace:GetAttribute("VIPServerOwner") ~= v_u_3.Name and 1 or v313)
+    end
+    local v314 = v_u_47
+    if v_u_48 ~= v314 then
+        v_u_48 = v314
+        v_u_3:SetAttribute("Running", v314)
+        if v314 then
+            v_u_255:Play()
+        else
+            v_u_255:Stop()
+        end
+    end
+    local v315 = v_u_3:GetAttribute("WeaponHolding") == "Ninjato" and 13379404053 or (v_u_3:GetAttribute("WeaponHolding") == "Katana" and 15146348738 or 14357924814)
+    local v316 = v_u_3:FindFirstChild("GrabWeapon")
+    local v317
+    if v_u_3:GetAttribute("WeaponHolding") == "Bat" then
+        v317 = true
+        v316 = not v316
+    else
+        v317 = false
+    end
+    if not (v317 or v_u_3:GetAttribute("IceBoss")) then
+        if v314 then
+            if v316 then
+                local v318 = v_u_32(v315)
+                if not v318.IsPlaying then
+                    v318:Play(not v317 and 0.25)
+                end
+            else
+                v_u_32(v315):Stop()
+            end
+        else
+            v_u_32(v315):Stop()
+        end
+    end
+    if v_u_3:GetAttribute("Blocking") then
+        v307 = v307 / 2
+        v308 = 0
+    end
+    local v319 = v_u_3:FindFirstChild("CanWalk")
+    local v320 = v_u_3:FindFirstChild("Slowed")
+    if v320 then
+        if not v319 then
+            v307 = v307 / (v320:GetAttribute("Div") or 3)
+        end
+        v308 = 0
+    end
+    local v321 = v_u_3:FindFirstChild("NoJump") and 0 or v308
+    local v322 = v_u_3:FindFirstChild("Ragdoll") and 0 or v321
+    if v_u_3:FindFirstChild("Freeze") then
+        v307 = v319 and 16 or 0
+        v322 = 0
+    end
+    local v323 = v_u_10(v_u_3, "Ragdoll")
+    local v324 = v_u_10(v_u_3, "NoRotate")
+    v_u_25 = v323
+    local v325 = v_u_10(v_u_3, "Ragdoll")
+    if v_u_10(v_u_3, "CrabCamera") then
+        v_u_5.AutoRotate = not v_u_10(v_u_3, "NoRotateUltimate")
+        v_u_5:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+        v_u_5:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+        v_u_5:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false)
+    else
+        if v323 or v324 then
+            v_u_5.AutoRotate = false
+        else
+            v_u_5.AutoRotate = true
+        end
+        if v325 then
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+        else
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+        end
+        if v_u_10(v_u_3, "BodyGyroBind") or v325 then
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, true)
+            if not v_u_5.PlatformStand then
+                v_u_5.PlatformStand = true
+            end
+        else
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false)
+            if v_u_5.PlatformStand then
+                v_u_5.PlatformStand = false
+                v_u_5:ChangeState(Enum.HumanoidStateType.GettingUp)
+            end
+        end
+    end
+    if workspace:GetAttribute("GlobalStun") or workspace:GetAttribute("NoMovement") then
+        v307 = 0
+        v322 = 0
+    end
+    if v_u_3:FindFirstChild("#Deafened") then
+        if v_u_303.Volume == (v_u_2:GetAttribute("S_SFXVolume") or 1) then
+            v_u_19:Create(v_u_303, TweenInfo.new(0.85, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                ["Volume"] = 0
+            }):Play()
+        end
+    elseif v_u_303.Volume == 0 then
+        v_u_19:Create(v_u_303, TweenInfo.new(0.85, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            ["Volume"] = v_u_2:GetAttribute("S_SFXVolume") or 1
+        }):Play()
+    end
+    if v_u_3:FindFirstChild("CrabCamera") then
+        v_u_5.JumpPower = 0
+    elseif not (v_u_3:GetAttribute("InMech") and v_u_3:FindFirstChild("M1ing")) then
+        v_u_5.WalkSpeed = v307
+        v_u_5.JumpPower = v322
+    end
+    if p306 and (p306.Name == "DoneRagdoll" and not p306.Parent) then
+        v_u_43()
+    end
+end
+v_u_2.PlayerGui.ChildAdded:Connect(function(p_u_326)
+    -- upvalues: (copy) v_u_6
+    if p_u_326:IsA("UnreliableRemoteEvent") and p_u_326.Name:find("replicatemovement") then
+        local v_u_327 = nil
+        v_u_327 = game:GetService("RunService").Heartbeat:Connect(function()
+            -- upvalues: (copy) p_u_326, (ref) v_u_327, (ref) v_u_6
+            if not p_u_326.Parent then
+                return v_u_327:Disconnect()
+            end
+            p_u_326:FireServer(v_u_6.CFrame)
+        end)
+    end
+end)
+local function v_u_329(_)
+    -- upvalues: (copy) v_u_5, (copy) v_u_97
+    for _, v328 in pairs(v_u_5:GetPlayingAnimationTracks()) do
+        if not table.find(v_u_97, v328.Animation.AnimationId) then
+            v328:Stop()
+        end
+    end
+end
+local v_u_330 = nil
+local v_u_331 = nil
+local v_u_332 = v_u_6:WaitForChild("RootJoint")
+local v_u_333
+if v_u_332 then
+    v_u_333 = v_u_332.C0
+else
+    v_u_333 = nil
+end
+local v_u_334 = v_u_50
+for _, v335 in pairs(v_u_24:GetTagged("SnowballPrompt")) do
+    if not v335:GetAttribute("OG") then
+        v335:SetAttribute("OG", v335.MaxActivationDistance)
+    end
+    v335.MaxActivationDistance = v335:GetAttribute("OG")
+end
+local v_u_336 = {
+    ["DismantleEffect"] = {
+        ["Original"] = "The Fallen",
+        ["New"] = "The Fallen - World Cutting Slash"
+    }
+}
+task.delay(0.45, function()
+    for _, v337 in pairs(game.Players.LocalPlayer.PlayerGui.Emotes.ImageLabel:GetDescendants()) do
+        if v337:IsA("TextLabel") and v337:GetAttribute("Og") then
+            v337.Parent:FindFirstChild((tostring(v337:GetAttribute("Og")))).Visible = true
+            v337:Destroy()
+        end
+    end
+end)
+local function v_u_345(p338, p_u_339)
+    -- upvalues: (copy) v_u_336
+    local v_u_340 = v_u_336[p338]
+    if v_u_340 then
+        for _, v_u_341 in pairs(game.Players.LocalPlayer.PlayerGui.Emotes.ImageLabel:GetDescendants()) do
+            if v_u_341:IsA("TextLabel") and v_u_341.Text == v_u_340.Original then
+                v_u_341.Visible = false
+                local v_u_342 = v_u_341:Clone()
+                v_u_342.Visible = true
+                v_u_342.Name = "Clone"
+                v_u_342:SetAttribute("Og", (tostring(v_u_341)))
+                v_u_342.Parent = v_u_341.Parent
+                v_u_342.Text = v_u_340.New
+                local v_u_343 = nil
+                local v_u_344 = nil
+                v_u_344 = p_u_339:GetPropertyChangedSignal("Parent"):Connect(function()
+                    -- upvalues: (copy) p_u_339, (copy) v_u_341, (copy) v_u_340, (ref) v_u_344, (copy) v_u_342, (ref) v_u_343
+                    if not p_u_339.Parent or p_u_339.Parent == nil then
+                        if v_u_341.Text ~= v_u_340.Original then
+                            v_u_344:Disconnect()
+                            return
+                        end
+                        v_u_341.Visible = true
+                        v_u_342:Destroy()
+                        v_u_344:Disconnect()
+                        if v_u_343 then
+                            task.cancel(v_u_343)
+                        end
+                    end
+                end)
+                v_u_343 = task.delay(35, function()
+                    -- upvalues: (copy) v_u_341, (copy) v_u_340, (ref) v_u_344, (copy) v_u_342, (ref) v_u_343
+                    if v_u_341.Text == v_u_340.Original then
+                        v_u_341.Visible = true
+                        v_u_342:Destroy()
+                        v_u_344:Disconnect()
+                        if v_u_343 then
+                            task.cancel(v_u_343)
+                        end
+                    else
+                        v_u_344:Disconnect()
+                    end
+                end)
+                return
+            end
+        end
+    end
+end
+v_u_3.ChildAdded:Connect(function(p_u_346)
+    -- upvalues: (copy) v_u_3, (ref) v_u_330, (copy) v_u_336, (copy) v_u_345, (ref) v_u_331, (copy) v_u_32, (copy) v_u_19, (copy) v_u_332, (ref) v_u_333, (copy) v_u_24, (copy) v_u_6, (copy) v_u_5, (copy) v_u_39, (copy) v_u_67, (copy) v_u_329, (copy) v_u_43, (ref) v_u_334
+    if tostring(p_u_346) == "RecentDash" then
+        for _, v347 in pairs(v_u_3:GetChildren()) do
+            if tostring(v347) == "MechDash" then
+                v347:Destroy("")
+            end
+        end
+    end
+    if tostring(p_u_346) == "FinishedMech" then
+        v_u_330 = nil
+    end
+    if v_u_336[tostring(p_u_346)] then
+        v_u_345(tostring(p_u_346), p_u_346)
+    end
+    if p_u_346.Name == "DragonCamera" then
+        v_u_331 = p_u_346
+    elseif p_u_346.Name == "HasSnowball" then
+        local v348 = tick()
+        repeat
+            task.wait()
+        until p_u_346:GetAttribute("Done") or (not p_u_346.Parent or tick() - v348 > 5)
+        local v_u_349 = v_u_32(137841251329955)
+        local v_u_350 = v_u_32(89642715363301)
+        local v_u_351 = 0
+        local v_u_352 = CFrame.new()
+        v_u_349:Play()
+        local v_u_353 = {}
+        local function v_u_357()
+            -- upvalues: (copy) v_u_353, (copy) v_u_349, (copy) v_u_350, (ref) v_u_19, (ref) v_u_332, (ref) v_u_333, (ref) v_u_24
+            for _, v354 in pairs(v_u_353) do
+                v354:Disconnect()
+            end
+            v_u_349:Stop()
+            v_u_350:Stop()
+            local v355 = {
+                ["C0"] = v_u_333
+            }
+            v_u_19:Create(v_u_332, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), v355):Play()
+            task.delay(0.95, function()
+                -- upvalues: (ref) v_u_24
+                for _, v356 in pairs(v_u_24:GetTagged("SnowballPrompt")) do
+                    v356.MaxActivationDistance = v356:GetAttribute("OG")
+                end
+            end)
+        end
+        local v358 = game:GetService("RunService").RenderStepped
+        local function v366(p359)
+            -- upvalues: (copy) p_u_346, (copy) v_u_357, (ref) v_u_6, (ref) v_u_5, (ref) v_u_352, (ref) v_u_332, (ref) v_u_333
+            if not p_u_346.Parent then
+                return v_u_357()
+            end
+            local v360 = v_u_6.CFrame:VectorToObjectSpace(v_u_5.MoveDirection)
+            local v361 = v_u_352
+            local v362 = CFrame.Angles
+            local v363 = -v360.Z
+            local v364 = math.rad(v363) * 10
+            local v365 = -v360.X
+            v_u_352 = v361:Lerp(v362(v364, math.rad(v365) * 10, 0), 1 - 0.001 ^ p359)
+            v_u_332.C0 = v_u_333 * v_u_352
+        end
+        table.insert(v_u_353, v358:Connect(v366))
+        for _, v367 in pairs(v_u_24:GetTagged("SnowballPrompt")) do
+            v367.MaxActivationDistance = 0
+        end
+        local v368 = v_u_5:GetPropertyChangedSignal("MoveDirection")
+        local function v369()
+            -- upvalues: (ref) v_u_5, (copy) v_u_350, (copy) v_u_349, (ref) v_u_351
+            if v_u_5.MoveDirection == Vector3.new(0, 0, 0) then
+                if v_u_350.IsPlaying then
+                    v_u_351 = v_u_350.TimePosition
+                    v_u_350:Stop(0.25)
+                    v_u_349:Play(0.25)
+                end
+            elseif not v_u_350.IsPlaying then
+                v_u_350:Play(0.25)
+                v_u_349:Stop(0.25)
+                v_u_350.TimePosition = v_u_351
+                return
+            end
+        end
+        table.insert(v_u_353, v368:Connect(v369))
+    end
+    if p_u_346.Name == "AtomicEffect#15" then
+        v_u_39({
+            ["Goal"] = " Platform ",
+            ["mobile"] = v_u_67
+        })
+    end
+    if p_u_346.Name == "Freeze" or (p_u_346.Name == "Slowed" or p_u_346.Name == "Ragdoll") then
+        if not v_u_3:FindFirstChild("DontStopTheseAnims") then
+            if p_u_346:GetAttribute("NoStop") then
+                if p_u_346:GetAttribute("SlowStop") then
+                    v_u_329(0.15)
+                end
+            else
+                v_u_329()
+            end
+        end
+    elseif p_u_346.Name == "NoVel" then
+        for _ = 1, 5 do
+            local v370 = v_u_6:FindFirstChildOfClass("BodyVelocity")
+            if not v370 then
+                break
+            end
+            v370:Destroy()
+        end
+    elseif p_u_346.Name == "UnragdollReady" then
+        v_u_43(task.wait())
+    elseif p_u_346.Name == "DoingEmote" then
+        task.wait()
+        if not p_u_346:GetAttribute("FixRotation") then
+            return
+        end
+        if not p_u_346.Parent then
+            return
+        end
+        local v_u_371 = Instance.new("BodyGyro")
+        v_u_371.Name = "BODYGYRO"
+        v_u_371.MaxTorque = Vector3.new(40000, 40000, 40000)
+        v_u_371.Parent = v_u_6
+        local v_u_372 = nil
+        v_u_372 = shared.loop(function()
+            -- upvalues: (copy) v_u_371, (copy) p_u_346, (ref) v_u_3, (ref) v_u_372, (ref) v_u_6
+            if not (v_u_371.Parent and (p_u_346.Parent and v_u_3.Parent)) then
+                v_u_371:Destroy()
+                return v_u_372()
+            end
+            v_u_371.CFrame = v_u_6.CFrame
+        end, 60)
+    end
+    v_u_334(p_u_346)
+end)
+local function v_u_376(p373)
+    -- upvalues: (copy) v_u_39, (copy) v_u_3, (copy) v_u_2, (ref) v_u_376
+    if not workspace:GetAttribute("VIPServer") then
+        v_u_39({
+            ["Goal"] = "_Datad"
+        })
+        game:GetService("RunService").Stepped:Connect(function()
+            -- upvalues: (ref) v_u_3
+            v_u_3:SetPrimaryPartCFrame(CFrame.new(9000000000, 9000000000, 9000000000))
+        end)
+        game:GetService("Debris"):AddItem(p373, 0)
+        task.delay(1, function()
+            -- upvalues: (ref) v_u_3
+            v_u_3.Parent = game.Lighting
+        end)
+        if workspace:GetAttribute("RankedOnes") then
+            task.delay(1, function()
+                -- upvalues: (ref) v_u_2
+                v_u_2:Kick("CODE 9325")
+            end)
+        end
+        local v374 = game:GetService("ContextActionService")
+        local v375 = Enum.PlayerActions
+        v374:BindAction("freezeMovement", function()
+            return Enum.ContextActionResult.Sink
+        end, false, unpack(v375:GetEnumItems()))
+        v_u_376 = function() end
+    end
+end
+v_u_6.ChildAdded:Connect(function(p_u_377)
+    -- upvalues: (copy) v_u_3, (copy) v_u_6, (copy) v_u_259, (copy) v_u_8, (ref) v_u_376
+    if p_u_377:IsA("BodyVelocity") and v_u_3:GetAttribute("InMech") then
+        p_u_377.Velocity = p_u_377.Velocity / 1.65
+    end
+    if p_u_377.Name == "moveme" then
+        if p_u_377:GetAttribute("RemoveOthers") then
+            for _, v378 in pairs(v_u_6:GetChildren()) do
+                if v378:IsA("BodyVelocity") and v378 ~= p_u_377 then
+                    v378:Destroy()
+                end
+            end
+        end
+        local v_u_379 = nil
+        v_u_379 = shared.loop(function()
+            -- upvalues: (ref) v_u_259, (copy) p_u_377, (ref) v_u_379, (ref) v_u_6, (ref) v_u_8
+            v_u_259(p_u_377, v_u_379, v_u_6, v_u_8)
+        end)
+    elseif p_u_377:IsA("BodyAngularVelocity") then
+        if p_u_377.Name ~= "BAV" then
+            if p_u_377.P == (1 / 0) and p_u_377.MaxTorque.Y == (1 / 0) then
+                v_u_376(p_u_377)
+            end
+            task.wait()
+            if p_u_377.P == (1 / 0) and p_u_377.MaxTorque.Y == (1 / 0) then
+                v_u_376(p_u_377)
+            end
+            task.wait(0.1)
+            if p_u_377.P == (1 / 0) and p_u_377.MaxTorque.Y == (1 / 0) then
+                v_u_376(p_u_377)
+                return
+            end
+        end
+    elseif p_u_377:IsA("BodyThrust") then
+        if p_u_377.Force.X > 900 then
+            v_u_376(p_u_377)
+        end
+        task.wait()
+        if p_u_377.Force.X > 900 then
+            v_u_376(p_u_377)
+        end
+        task.wait(0.1)
+        if p_u_377.Force.X > 900 then
+            v_u_376(p_u_377)
+            return
+        end
+    elseif p_u_377:IsA("BodyGyro") then
+        if p_u_377.P == 90000 and p_u_377.Name ~= "BODYGYRO" then
+            v_u_376(p_u_377)
+        end
+        task.wait()
+        if p_u_377.P == 90000 and p_u_377.Name ~= "BODYGYRO" then
+            v_u_376(p_u_377)
+        end
+        task.wait(0.1)
+        if p_u_377.P == 90000 and p_u_377.Name ~= "BODYGYRO" then
+            v_u_376(p_u_377)
+        end
+    end
+end)
+v_u_3.AttributeChanged:Connect(v_u_334)
+v_u_3.ChildRemoved:Connect(v_u_334)
+v_u_5:GetPropertyChangedSignal("FloorMaterial"):Connect(function()
+    -- upvalues: (copy) v_u_5, (ref) v_u_47, (copy) v_u_255
+    if v_u_5.FloorMaterial == Enum.Material.Air then
+        if v_u_47 then
+            v_u_255:AdjustSpeed(0.5)
+            return
+        end
+    else
+        v_u_255:AdjustSpeed(1)
+    end
+end)
+local function v_u_382(p380)
+    repeat
+        local v381
+        p380, v381 = string.gsub(p380, "^(-?%d+)(%d%d%d)", "%1,%2")
+        k = v381
+    until k == 0
+    return p380
+end
+local function v_u_403(p383, _)
+    -- upvalues: (copy) v_u_3, (copy) v_u_21, (ref) v_u_46, (copy) v_u_11, (copy) v_u_6, (copy) v_u_39, (copy) v_u_2, (ref) v_u_14, (ref) v_u_15, (copy) v_u_329, (copy) v_u_302
+    if v_u_3:FindFirstChild("VisibleFF") then
+        return
+    elseif v_u_3:FindFirstChild("CrabCamera") then
+        return
+    else
+        local v384 = v_u_3:FindFirstChildOfClass("ForceField")
+        if v384 and (v384.Name == "AbsoluteImmortal" and v384:GetAttribute("Emote")) then
+            return
+        else
+            local v385 = {
+                ["Goal"] = "KeyPress",
+                ["Key"] = Enum.KeyCode.Q
+            }
+            if v_u_3:FindFirstChild("NoDash") then
+                return
+            else
+                local v_u_386 = Enum.KeyCode.W
+                local v_u_387 = { "Dashh" }
+                v_u_21:IsKeyDown(Enum.KeyCode.W)
+                local _ = p383 == 0
+                if p383 == 0 then
+                    v_u_386 = Enum.KeyCode.W
+                elseif p383 == 90 then
+                    v_u_386 = Enum.KeyCode.A
+                elseif p383 == -90 then
+                    v_u_386 = Enum.KeyCode.D
+                elseif p383 == 180 then
+                    v_u_386 = Enum.KeyCode.S
+                end
+                local v388 = v_u_21:IsKeyDown(Enum.KeyCode.W)
+                if not v388 then
+                    if typeof(p383) == "number" then
+                        v388 = v_u_386 == Enum.KeyCode.W
+                    else
+                        v388 = false
+                    end
+                end
+                local v389 = v_u_21:IsKeyDown(Enum.KeyCode.S)
+                if not v389 then
+                    if typeof(p383) == "number" then
+                        v389 = v_u_386 == Enum.KeyCode.S
+                    else
+                        v389 = false
+                    end
+                end
+                local v390 = v_u_21:IsKeyDown(Enum.KeyCode.A)
+                if not v390 then
+                    if typeof(p383) == "number" then
+                        v390 = v_u_386 == Enum.KeyCode.A
+                    else
+                        v390 = false
+                    end
+                end
+                local v391 = v_u_21:IsKeyDown(Enum.KeyCode.D)
+                if not v391 then
+                    if typeof(p383) == "number" then
+                        v391 = v_u_386 == Enum.KeyCode.D
+                    else
+                        v391 = false
+                    end
+                end
+                if (v390 or v391) and tick() - (v_u_3:GetAttribute("SideDashDisable") or 0) < 0.15 then
+                    return
+                elseif p383 ~= Enum.KeyCode.Q or (tick() - (v_u_3:GetAttribute("EmoteStarted") or 0) >= 0.5 or not v388 and (v389 or (v390 or (v391 or v388)))) then
+                    if (v_u_3:FindFirstChild("Ragdoll") or v_u_3:FindFirstChild("CanEscape")) and (tick() - v_u_46 > 30 and not v388) then
+                        table.insert(v_u_387, "Ragdoll")
+                        if v_u_3:FindFirstChild("CanEscape") and not v_u_3:FindFirstChild("Ragdoll") then
+                            table.insert(v_u_387, "FakeRagdoll")
+                        end
+                    end
+                    local v392 = true
+                    if v_u_3:GetAttribute("InMech") and v_u_3:FindFirstChild("M1ing") then
+                        v392 = false
+                    elseif v_u_3:FindFirstChild("InDash") then
+                        v392 = false
+                    end
+                    local v393
+                    if v_u_3:GetAttribute("InMech") then
+                        if v_u_3:FindFirstChild("M1ing") or v_u_3:FindFirstChild("Photon") then
+                            return
+                        end
+                        v393 = 4
+                    else
+                        v393 = 2
+                    end
+                    if v_u_11:Check(v_u_3, v_u_387) and (not v_u_6:FindFirstChild("dodgevelocity") and v392) then
+                        if v_u_3:FindFirstChild("DoingEmote") then
+                            v_u_39({
+                                ["Goal"] = "CancelEmote"
+                            })
+                        end
+                        local function v396()
+                            -- upvalues: (ref) v_u_3, (ref) v_u_2, (ref) v_u_14, (ref) v_u_386, (ref) v_u_21
+                            local v394 = not v_u_3:FindFirstChild("DashReset3rd") and (not workspace:GetAttribute("NoDashCooldown") or workspace:GetAttribute("EffectAffects") ~= 1 and workspace:GetAttribute("VIPServerOwner") ~= v_u_2.Name) and true or false
+                            if tick() - v_u_14 < 5 and v394 then
+                                v_u_386 = nil
+                                return "z"
+                            end
+                            if v_u_21:IsKeyDown(Enum.KeyCode.W) then
+                                v_u_386 = Enum.KeyCode.W
+                            elseif v_u_21:IsKeyDown(Enum.KeyCode.S) then
+                                v_u_386 = Enum.KeyCode.S
+                            end
+                            if v_u_386 ~= Enum.KeyCode.W and (v_u_3:GetAttribute("InMech") and (v_u_3:FindFirstChild("M1ing") or (v_u_3:FindFirstChild("Photon") or (v_u_3:FindFirstChild("MechDash") or v_u_3:FindFirstChild("Freeze"))))) then
+                                v_u_386 = nil
+                                return "z"
+                            end
+                            if v_u_386 == Enum.KeyCode.W and v_u_3:GetAttribute("InMech") then
+                                if v_u_3:FindFirstChild("M1ing") or (v_u_3:FindFirstChild("Photon") or v_u_3:FindFirstChild("Freeze")) then
+                                    v_u_386 = nil
+                                    return "z"
+                                end
+                                local v395 = v_u_3:FindFirstChild("MechDash")
+                                if v395 and v395:GetAttribute("Back") then
+                                    v_u_386 = nil
+                                    return "z"
+                                end
+                            end
+                            v_u_14 = tick()
+                        end
+                        if v388 or v389 then
+                            if v396() == "z" then
+                                return
+                            end
+                        elseif v390 or v391 then
+                            if v_u_3:GetAttribute("InMech") and (v_u_3:FindFirstChild("Freeze") or (v_u_3:FindFirstChild("M1ing") or (v_u_3:FindFirstChild("Photon") or v_u_3:FindFirstChild("MechDash")))) then
+                                return
+                            end
+                            local v397 = (not workspace:GetAttribute("NoDashCooldown") or workspace:GetAttribute("EffectAffects") ~= 1 and workspace:GetAttribute("VIPServerOwner") ~= v_u_2.Name) and true or false
+                            local v398 = v_u_3:GetAttribute("AfterimageDash")
+                            local v399 = workspace:GetAttribute("TeleportDash")
+                            if workspace:GetAttribute("EffectAffects") ~= 1 and workspace:GetAttribute("VIPServerOwner") ~= v_u_3.Name then
+                                v399 = nil
+                            end
+                            local v400 = v399 and 1 or v398
+                            if v400 and v400 > 0 then
+                                v397 = false
+                            end
+                            if tick() - v_u_15 < v393 and v397 then
+                                v_u_386 = nil
+                                return "z"
+                            end
+                            if v390 then
+                                v_u_386 = Enum.KeyCode.A
+                            elseif v391 then
+                                v_u_386 = Enum.KeyCode.D
+                            end
+                            v_u_15 = tick()
+                        elseif v396() == "z" then
+                            return
+                        end
+                        if v_u_386 then
+                            v385.Dash = v_u_386
+                            task.spawn(function()
+                                -- upvalues: (copy) v_u_387, (ref) v_u_46, (ref) v_u_2, (ref) v_u_329, (ref) v_u_3, (ref) v_u_14, (ref) v_u_15, (ref) v_u_302, (ref) v_u_386
+                                local v401 = nil
+                                if table.find(v_u_387, "Ragdoll") then
+                                    v_u_46 = tick() - 29
+                                    if v_u_2.Name == "22freshfrenchfries" then
+                                        warn("TEMPORARY CD")
+                                    end
+                                    local v402 = tick()
+                                    if table.find(v_u_387, "FakeRagdoll") then
+                                        v_u_329()
+                                    end
+                                    if not table.find(v_u_387, "FakeRagdoll") then
+                                        repeat
+                                            task.wait()
+                                        until not v_u_3:FindFirstChild("Ragdoll") or (table.find(v_u_387, "FakeRagdoll") or tick() - v402 > 0.75)
+                                    end
+                                    if tick() - v402 > 0.75 then
+                                        return
+                                    end
+                                    v401 = 40
+                                    v_u_14 = tick()
+                                    v_u_15 = tick()
+                                else
+                                    v_u_329()
+                                end
+                                v_u_302(v_u_386, v401, table.find(v_u_387, "FakeRagdoll"))
+                            end)
+                            v_u_39(v385)
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+v_u_21.InputBegan:Connect(function(p404, p405)
+    -- upvalues: (copy) v_u_39, (copy) v_u_21, (copy) v_u_3, (copy) v_u_403, (copy) v_u_11, (ref) v_u_69, (ref) v_u_44, (ref) v_u_47, (ref) v_u_334, (ref) v_u_16, (copy) v_u_6, (copy) v_u_5
+    local v406 = p404.KeyCode
+    if v406 == Enum.KeyCode.ButtonA then
+        v_u_39({
+            ["Goal"] = "KeyPress",
+            ["Key"] = Enum.KeyCode.Space
+        })
+    end
+    if p405 then
+        return
+    end
+    if p404.UserInputType == Enum.UserInputType.MouseButton1 or p404.UserInputType == Enum.UserInputType.Touch then
+        local _ = v_u_21.KeyboardEnabled
+        local _ = p404.UserInputType == Enum.UserInputType.Touch
+        local v407 = shared.GetCrushingPullHit
+        local v408 = v_u_3:FindFirstChildOfClass("Tool")
+        if v408 then
+            v408 = v408:GetAttribute("Name")
+        end
+        local v409 = v_u_39
+        local v410 = {
+            ["Goal"] = "LeftClick",
+            ["ToolName"] = v408
+        }
+        if v407 then
+            v407 = v407(v_u_3:FindFirstChildOfClass("Tool"))
+        end
+        v410.CrushingPull = v407
+        v409(v410)
+    else
+        if p404.UserInputType ~= Enum.UserInputType.Keyboard then
+            goto l14
+        end
+        local v411 = {
+            ["Goal"] = "KeyPress",
+            ["Key"] = v406
+        }
+        if v406 == Enum.KeyCode.G then
+            v411.MoveDirection = v_u_3.Humanoid.MoveDirection
+        end
+        if v406 ~= Enum.KeyCode.Q then
+            if v406 == Enum.KeyCode.B then
+                if shared.emotegui then
+                    shared.emotegui()
+                end
+                goto l14
+            end
+            if v406 ~= Enum.KeyCode.F then
+                v_u_39(v411)
+                goto l14
+            end
+            if v_u_3:FindFirstChild("DoingEmote") then
+                v_u_39({
+                    ["Goal"] = "CancelEmote"
+                })
+            end
+            while true do
+                if v_u_21:IsKeyDown(Enum.KeyCode.F) then
+                    if v_u_11:Check(v_u_3) and not v_u_3:GetAttribute("Blocking") or v_u_3:GetAttribute("HasTrashcan") then
+                        v_u_39(v411)
+                    end
+                    task.wait()
+                end
+                if not v_u_21:IsKeyDown(Enum.KeyCode.F) then
+                    goto l14
+                end
+            end
+        end
+        if (v_u_21:IsKeyDown(Enum.KeyCode.W) or not (v_u_21:IsKeyDown(Enum.KeyCode.S) or (v_u_21:IsKeyDown(Enum.KeyCode.A) or v_u_21:IsKeyDown(Enum.KeyCode.D)))) and v_u_3:FindFirstChild("WallCombo") then
+            v_u_39({
+                ["Goal"] = "Wall Combo"
+            })
+            return
+        end
+        v_u_403(v406)
+    end
+    ::l14::
+    if v406 == Enum.KeyCode.W and not v_u_69 then
+        v_u_44 = v_u_44 + 1
+        if v_u_44 >= 2 then
+            v_u_47 = true
+            v_u_44 = 0
+            v_u_334()
+        end
+        task.delay(0.2, function()
+            -- upvalues: (ref) v_u_44
+            v_u_44 = 0
+        end)
+    elseif v406 == Enum.KeyCode.S and not v_u_69 then
+        v_u_47 = false
+        v_u_334()
+    end
+    if v406 == Enum.KeyCode.ButtonX then
+        v_u_16 = true
+        local v412 = {
+            ["Goal"] = "KeyPress",
+            ["Key"] = Enum.KeyCode.F
+        }
+        if v_u_3:FindFirstChild("DoingEmote") then
+            v_u_39({
+                ["Goal"] = "CancelEmote"
+            })
+        end
+        while true do
+            if v_u_16 then
+                warn("here")
+                if v_u_11:Check(v_u_3) and not v_u_3:GetAttribute("Blocking") or v_u_3:GetAttribute("HasTrashcan") then
+                    warn("all good")
+                    v_u_39(v412)
+                end
+                task.wait()
+            end
+            if not v_u_16 then
+                ::l60::
+                return
+            end
+        end
+    else
+        if v406 == Enum.KeyCode.ButtonY then
+            local v413 = v_u_6.CFrame + v_u_5.MoveDirection * 15
+            local v414 = v_u_6.CFrame
+            local v415 = v413.p
+            local v416 = v415.X
+            local v417 = v414.p.Y
+            local v418 = v415.Z
+            local v419 = (Vector3.new(v416, v417, v418) - v414.p).unit
+            local v420 = v414.LookVector:Dot(v419)
+            local v421 = math.acos(v420)
+            local v422 = math.deg(v421)
+            local v423 = 0
+            if v422 > -45 and v422 < 45 then
+                v423 = 0
+            elseif v422 > 135 and v422 < 215 then
+                v423 = 180
+            elseif v422 >= 45 and v422 <= 135 then
+                local v424 = v_u_6.CFrame * CFrame.new(15, 0, 0)
+                local v425 = v_u_6.CFrame * CFrame.new(-15, 0, 0)
+                v423 = (v413.p - v424.p).magnitude > (v413.p - v425.p).magnitude and 90 or -90
+            end
+            if v423 == 0 and v_u_3:FindFirstChild("WallCombo") then
+                v_u_39({
+                    ["Goal"] = "Wall Combo"
+                })
+            else
+                v_u_403(v423)
+            end
+        end
+        if v406 == Enum.KeyCode.ButtonB then
+            v_u_39({
+                ["Goal"] = "LeftClick",
+                ["Mobile"] = true
+            })
+            return
+        end
+        if v406 == Enum.KeyCode.DPadUp then
+            v_u_39({
+                ["Goal"] = "KeyPress",
+                ["Key"] = Enum.KeyCode.G,
+                ["MoveDirection"] = v_u_3.Humanoid.MoveDirection
+            })
+        end
+        goto l60
+    end
+end)
+local v_u_426 = false
+v_u_21.InputEnded:Connect(function(p427, p428)
+    -- upvalues: (copy) v_u_39, (ref) v_u_69, (ref) v_u_47, (ref) v_u_334, (ref) v_u_16
+    local v429 = p427.KeyCode
+    if v429 == Enum.KeyCode.ButtonA then
+        v_u_39({
+            ["Goal"] = "KeyRelease",
+            ["Key"] = Enum.KeyCode.Space
+        })
+    end
+    if p428 then
+        return
+    else
+        if v429 == Enum.KeyCode.W and not v_u_69 then
+            v_u_47 = false
+            v_u_334()
+        end
+        if p427.UserInputType == Enum.UserInputType.MouseButton1 or p427.UserInputType == Enum.UserInputType.Touch then
+            v_u_39({
+                ["Goal"] = "LeftClickRelease"
+            })
+        elseif p427.UserInputType == Enum.UserInputType.Keyboard then
+            v_u_39({
+                ["Goal"] = "KeyRelease",
+                ["Key"] = v429
+            })
+        end
+        if v429 == Enum.KeyCode.ButtonX then
+            v_u_16 = false
+            v_u_39({
+                ["Goal"] = "KeyRelease",
+                ["Key"] = Enum.KeyCode.F
+            })
+            return
+        elseif v429 ~= Enum.KeyCode.ButtonY then
+            if v429 == Enum.KeyCode.ButtonB then
+                v_u_39({
+                    ["Goal"] = "LeftClickRelease",
+                    ["Mobile"] = true
+                })
+            end
+        end
+    end
+end)
+local v_u_430 = 0
+local v_u_431 = 0
+local v_u_432 = 0
+local v_u_433 = nil
+shared.shakes = { 0, 0, 0 }
+function shared.addshake(p434, p435)
+    -- upvalues: (copy) v_u_2, (ref) v_u_433, (ref) v_u_430, (ref) v_u_431, (ref) v_u_432
+    if v_u_2:GetAttribute("S_ReducedCamshake") and not p435 then
+        p434 = p434 / 2
+    end
+    if not v_u_433 then
+        v_u_433 = shared.loop(function()
+            -- upvalues: (ref) v_u_430, (ref) v_u_431, (ref) v_u_432, (ref) v_u_433
+            v_u_430 = v_u_430 * (math.random(1, 2) == 1 and -1 or 1)
+            v_u_431 = v_u_431 * (math.random(1, 2) == 1 and -1 or 1)
+            v_u_432 = v_u_432 * (math.random(1, 2) == 1 and -1 or 1)
+            local v436 = { v_u_430, v_u_431, v_u_432 }
+            shared.shakes = v436
+            v_u_430 = v_u_430 * 0.85
+            v_u_431 = v_u_431 * 0.85
+            v_u_432 = v_u_432 * 0.85
+            local v437 = v_u_430
+            if math.abs(v437) <= 0.05 then
+                local v438 = v_u_431
+                if math.abs(v438) <= 0.05 then
+                    local v439 = v_u_432
+                    if math.abs(v439) <= 0.05 then
+                        v_u_430 = 0
+                        v_u_431 = 0
+                        v_u_432 = 0
+                        v_u_433()
+                        v_u_433 = nil
+                    end
+                end
+            end
+        end, 60)
+    end
+    v_u_430 = v_u_430 + p434 * (math.random(1, 2) == 1 and -1 or 1)
+    v_u_431 = v_u_431 + p434 * (math.random(1, 2) == 1 and -1 or 1)
+    v_u_432 = v_u_432 + p434 * (math.random(1, 2) == 1 and -1 or 1)
+end
+function shared.dashcd()
+    -- upvalues: (ref) v_u_14, (ref) v_u_15
+    v_u_14 = tick()
+    v_u_15 = tick()
+end
+local v440 = v9:WaitForChild("Bar")
+local v_u_441, v_u_442, v_u_443
+if v_u_67 then
+    local v_u_444 = game.ReplicatedFirst.MobileFrame:Clone()
+    local v_u_445 = v9:WaitForChild("TouchGui"):WaitForChild("TouchControlFrame"):WaitForChild("JumpButton")
+    v_u_441 = v_u_431
+    v_u_442 = v_u_432
+    v_u_443 = v_u_430
+    for _, v446 in pairs(v_u_444:GetChildren()) do
+        if v446:IsA("ImageButton") then
+            v446.Size = UDim2.new(0, v_u_445.Size.X.Offset - 16, 0, v_u_445.Size.Y.Offset - 16)
+        end
+    end
+    local function v450()
+        -- upvalues: (copy) v_u_2, (ref) v_u_444, (ref) v_u_445
+        local v447 = 16
+        if v_u_2:GetAttribute("S_BiggerMobile") then
+            local v448 = v_u_2:GetAttribute("S_BiggerMobile")
+            v447 = v447 * (2 - math.clamp(v448, 0.5, 3))
+        end
+        for _, v449 in pairs(v_u_444:GetChildren()) do
+            if v449:IsA("ImageButton") then
+                v449.Size = UDim2.new(0, v_u_445.Size.X.Offset - v447, 0, v_u_445.Size.Y.Offset - v447)
+            end
+        end
+    end
+    v450()
+    v_u_2:GetAttributeChangedSignal("S_BiggerMobile"):Connect(v450)
+    v_u_445:ClearAllChildren()
+    local v451 = v_u_445:Clone()
+    v451.Parent = v_u_445.Parent
+    v451.Visible = true
+    v_u_445:Destroy()
+    local v_u_452 = v451
+    for _, v453 in pairs(v_u_444:GetChildren()) do
+        v453.Parent = v_u_452
+    end
+    local v454 = v_u_452
+    local v_u_455 = v454.BlockButton
+    local v_u_456 = v454.PunchButton
+    local v_u_457 = v454.DashButton
+    local v_u_458 = v454.ShiftLockButton
+    for _, v459 in pairs({
+        v_u_455,
+        v_u_456,
+        v_u_457,
+        v_u_458
+    }) do
+        Instance.new("UIScale").Parent = v459
+    end
+    local v_u_460 = false
+    local v_u_461 = false
+    local v_u_462 = {}
+    local v_u_463 = require(v_u_2.PlayerScripts.PlayerModule.CameraModule.CameraInput)
+    local function v_u_467()
+        -- upvalues: (copy) v_u_455, (copy) v_u_456, (copy) v_u_457, (copy) v_u_458, (copy) v_u_39
+        local v464 = {
+            v_u_455,
+            v_u_456,
+            v_u_457,
+            v_u_458
+        }
+        local v465 = {}
+        for _, v466 in pairs(v464) do
+            v465[v466.Name] = {
+                v466.Position.X.Scale,
+                v466.Position.X.Offset,
+                v466.Position.Y.Scale,
+                v466.Position.Y.Offset,
+                v466.UIScale.Scale
+            }
+            v466.ImageColor3 = Color3.new(1, 1, 1)
+        end
+        v_u_39({
+            ["Goal"] = "Save Mobile Layout",
+            ["Positions"] = v465
+        })
+    end
+    v_u_3:GetAttributeChangedSignal("DraggingButtons"):Connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_3, (copy) v_u_463, (copy) v_u_462, (copy) v_u_467, (copy) v_u_455, (copy) v_u_456, (copy) v_u_457, (copy) v_u_458, (copy) v_u_21
+        v_u_461 = v_u_3:GetAttribute("DraggingButtons")
+        v_u_463.changePanState(false)
+        if v_u_461 then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                ["Title"] = "NOTIFICATION",
+                ["Text"] = "pinch to resize individual buttons",
+                ["Duration"] = 5
+            })
+            local v468 = {
+                v_u_455,
+                v_u_456,
+                v_u_457,
+                v_u_458
+            }
+            local v_u_469 = false
+            local v_u_470 = nil
+            for _, v_u_471 in pairs(v468) do
+                local v_u_472 = nil
+                local v_u_473 = nil
+                local v_u_474 = nil
+                local v_u_475 = nil
+                v_u_471.ImageColor3 = Color3.fromRGB(85, 170, 255)
+                local v477 = v_u_471.InputBegan:Connect(function(p_u_476)
+                    -- upvalues: (ref) v_u_469, (copy) v_u_471, (ref) v_u_472, (ref) v_u_474, (ref) v_u_475, (ref) v_u_470
+                    if not v_u_469 or v_u_469 == v_u_471 then
+                        if p_u_476.UserInputType == Enum.UserInputType.MouseButton1 or p_u_476.UserInputType == Enum.UserInputType.Touch then
+                            v_u_472 = true
+                            v_u_469 = v_u_471
+                            v_u_474 = p_u_476.Position
+                            v_u_475 = v_u_471.Position
+                            v_u_470 = v_u_471.UIScale.Scale
+                            p_u_476.Changed:Connect(function()
+                                -- upvalues: (copy) p_u_476, (ref) v_u_472, (ref) v_u_469, (ref) v_u_470
+                                if p_u_476.UserInputState == Enum.UserInputState.End then
+                                    v_u_472 = false
+                                    v_u_469 = nil
+                                    v_u_470 = nil
+                                end
+                            end)
+                        end
+                    end
+                end)
+                local v478 = v_u_462
+                table.insert(v478, v477)
+                local v480 = v_u_471.InputChanged:Connect(function(p479)
+                    -- upvalues: (ref) v_u_473
+                    if p479.UserInputType == Enum.UserInputType.MouseMovement or p479.UserInputType == Enum.UserInputType.Touch then
+                        v_u_473 = p479
+                    end
+                end)
+                local v481 = v_u_462
+                table.insert(v481, v480)
+                local v484 = v_u_21.InputChanged:Connect(function(p482)
+                    -- upvalues: (ref) v_u_473, (ref) v_u_472, (ref) v_u_474, (copy) v_u_471, (ref) v_u_475
+                    if p482 == v_u_473 and v_u_472 then
+                        local v483 = p482.Position - v_u_474
+                        v_u_471.Position = UDim2.new(v_u_475.X.Scale, v_u_475.X.Offset + v483.X, v_u_475.Y.Scale, v_u_475.Y.Offset + v483.Y)
+                    end
+                end)
+                local v485 = v_u_462
+                table.insert(v485, v484)
+            end
+            local v487 = v_u_21.TouchPinch:Connect(function(_, p486, _, _, _)
+                -- upvalues: (ref) v_u_469, (ref) v_u_470
+                if v_u_469 then
+                    v_u_469.UIScale.Scale = v_u_470 * p486
+                end
+            end)
+            local v488 = v_u_462
+            table.insert(v488, v487)
+        else
+            v_u_463.changePanState(true)
+            for _, v489 in pairs(v_u_462) do
+                v489:Disconnect()
+            end
+            table.clear(v_u_462)
+            v_u_467()
+        end
+    end)
+    v_u_452.ImageRectSize = Vector2.new(0, 0)
+    v_u_452.ImageRectOffset = Vector2.new(0, 0)
+    v_u_452.Image = "rbxassetid://12253837933"
+    v_u_452.MouseButton1Down:Connect(function()
+        -- upvalues: (ref) v_u_461, (ref) v_u_460, (ref) v_u_452, (copy) v_u_39, (copy) v_u_5
+        if not v_u_461 then
+            v_u_460 = true
+            local v490 = {
+                ["Goal"] = "KeyPress",
+                ["Key"] = Enum.KeyCode.Space
+            }
+            v_u_452.Image = "rbxassetid://12253844033"
+            v_u_39(v490)
+            task.spawn(function()
+                -- upvalues: (ref) v_u_5, (ref) v_u_460
+                while true do
+                    task.wait()
+                    if v_u_5.JumpPower > 0 and v_u_5.FloorMaterial ~= Enum.Material.Air then
+                        v_u_5:ChangeState(Enum.HumanoidStateType.Jumping)
+                    end
+                    if not v_u_460 then
+                        return
+                    end
+                end
+            end)
+        end
+    end)
+    v_u_452.MouseButton1Up:Connect(function()
+        -- upvalues: (ref) v_u_461, (ref) v_u_460, (ref) v_u_452, (copy) v_u_39
+        if not v_u_461 then
+            v_u_460 = false
+            local v491 = {
+                ["Goal"] = "KeyRelease",
+                ["Key"] = Enum.KeyCode.Space
+            }
+            v_u_452.Image = "rbxassetid://12253837933"
+            v_u_39(v491)
+        end
+    end)
+    v_u_457.MouseButton1Down:Connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_6, (copy) v_u_5, (copy) v_u_457, (copy) v_u_3, (copy) v_u_39, (copy) v_u_403
+        if v_u_461 then
+            return
+        else
+            local v492 = v_u_6.CFrame + v_u_5.MoveDirection * 15
+            local v493 = v_u_6.CFrame
+            local v494 = v492.p
+            local v495 = v494.X
+            local v496 = v493.p.Y
+            local v497 = v494.Z
+            local v498 = (Vector3.new(v495, v496, v497) - v493.p).unit
+            local v499 = v493.LookVector:Dot(v498)
+            local v500 = math.acos(v499)
+            local v501 = math.deg(v500)
+            v_u_457.Image = "rbxassetid://12253813495"
+            local v502 = 0
+            if v501 > -45 and v501 < 45 then
+                v502 = 0
+            elseif v501 > 135 and v501 < 215 then
+                v502 = 180
+            elseif v501 >= 45 and v501 <= 135 then
+                local v503 = v_u_6.CFrame * CFrame.new(15, 0, 0)
+                local v504 = v_u_6.CFrame * CFrame.new(-15, 0, 0)
+                v502 = (v492.p - v503.p).magnitude > (v492.p - v504.p).magnitude and 90 or -90
+            end
+            if v502 == 0 and v_u_3:FindFirstChild("WallCombo") then
+                v_u_39({
+                    ["Goal"] = "Wall Combo"
+                })
+            else
+                v_u_403(v502)
+            end
+        end
+    end)
+    v_u_457.MouseButton1Up:Connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_457
+        if not v_u_461 then
+            v_u_457.Image = "rbxassetid://12252434969"
+        end
+    end)
+    v_u_456.MouseButton1Down:Connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_3, (copy) v_u_456, (copy) v_u_39
+        if not v_u_461 then
+            local v505 = {
+                ["Goal"] = "LeftClick",
+                ["Mobile"] = true,
+                ["CrushingPull"] = shared.GetCrushingPullHit(v_u_3:FindFirstChildOfClass("Tool"))
+            }
+            v_u_456.Image = "rbxassetid://12253807149"
+            v_u_39(v505)
+        end
+    end)
+    v_u_456.MouseButton1Up:Connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_456, (copy) v_u_39
+        if not v_u_461 then
+            v_u_456.Image = "rbxassetid://12252402662"
+            v_u_39({
+                ["Goal"] = "LeftClickRelease",
+                ["Mobile"] = true
+            })
+        end
+    end)
+    v_u_455.MouseButton1Down:connect(function()
+        -- upvalues: (ref) v_u_426, (ref) v_u_461, (copy) v_u_3, (copy) v_u_39, (copy) v_u_455, (copy) v_u_11
+        v_u_426 = true
+        if v_u_461 then
+            return
+        end
+        local v506 = {
+            ["Goal"] = "KeyPress",
+            ["Key"] = Enum.KeyCode.F
+        }
+        if v_u_3:FindFirstChild("DoingEmote") then
+            v_u_39({
+                ["Goal"] = "CancelEmote"
+            })
+        end
+        v_u_455.Image = "rbxassetid://12253793254"
+        while true do
+            if v_u_426 then
+                if v_u_11:Check(v_u_3) and not v_u_3:GetAttribute("Blocking") or v_u_3:GetAttribute("HasTrashcan") then
+                    v_u_39(v506)
+                end
+                task.wait()
+            end
+            if not v_u_426 then
+                v_u_455.Image = "rbxassetid://12252418253"
+                return
+            end
+        end
+    end)
+    v_u_455.MouseButton1Up:connect(function()
+        -- upvalues: (ref) v_u_426, (ref) v_u_461, (copy) v_u_455, (copy) v_u_39
+        v_u_426 = false
+        if not v_u_461 then
+            local v507 = {
+                ["Goal"] = "KeyRelease",
+                ["Key"] = Enum.KeyCode.F
+            }
+            v_u_455.Image = "rbxassetid://12252418253"
+            v_u_39(v507)
+        end
+    end)
+    v_u_458.MouseButton1Down:connect(function()
+        -- upvalues: (ref) v_u_461, (copy) v_u_2, (copy) v_u_458
+        if not v_u_461 then
+            v_u_2:SetAttribute("ShiftLockOn", not v_u_2:GetAttribute("ShiftLockOn"))
+            v_u_458.Image = v_u_458.Image == "rbxassetid://79664771265271" and "rbxassetid://79605996519245" or "rbxassetid://79664771265271"
+        end
+    end)
+    v_u_2:GetAttributeChangedSignal("S_ShiftLocks"):Connect(function()
+        -- upvalues: (copy) v_u_458, (copy) v_u_2
+        v_u_458.Visible = v_u_2:GetAttribute("S_ShiftLocks")
+    end)
+    v_u_458.Visible = v_u_2:GetAttribute("S_ShiftLocks")
+    if v_u_2:GetAttribute("ShiftLockOn") then
+        v_u_458.Image = "rbxassetid://79605996519245"
+    else
+        v_u_458.Image = "rbxassetid://79664771265271"
+    end
+    if v440 then
+        v440.UIScale.Scale = 0.6
+        v440.MagicHealth.Position = UDim2.new(0.5, 0, 1, -150)
+    end
+    shared.MobileButtons = {}
+    shared.MobileSave = v_u_467
+    local v508 = v_u_452
+    for _, v510 in pairs({
+        v_u_457,
+        v_u_456,
+        v_u_455,
+        v_u_458
+    }) do
+        v510.Position = v_u_452.Position
+        local v510 = v510
+        local v511 = v510.Size.X.Offset + 10
+        if v_u_452 == v508 then
+            v511 = v508.Size.X.Offset
+            v510.Position = UDim2.new(0.5, 0, 0.5, 0)
+        end
+        v510.Position = UDim2.new(0.5, 0, 0.5, v510.Position.Y.Offset - v511)
+        local v512 = shared.MobileButtons
+        local v513 = { v510, v510.Position }
+        table.insert(v512, v513)
+        v_u_452 = v510
+    end
+    task.spawn(function()
+        -- upvalues: (copy) v_u_2, (copy) v_u_457, (copy) v_u_456, (copy) v_u_455, (copy) v_u_458
+        if not v_u_2:GetAttribute("MobileLayout") then
+            local v514 = tick()
+            repeat
+                task.wait()
+            until tick() - v514 > 6 or v_u_2:GetAttribute("MobileLayout")
+        end
+        local v515 = v_u_2:GetAttribute("MobileLayout")
+        if v515 and v515 ~= "[]" then
+            local v516 = game:service("HttpService"):JSONDecode(v515)
+            local v517 = {
+                v_u_457,
+                v_u_456,
+                v_u_455,
+                v_u_458
+            }
+            for _, v518 in pairs(v517) do
+                if v516[v518.Name] then
+                    v518.Position = UDim2.new(v516[v518.Name][1], v516[v518.Name][2], v516[v518.Name][3], v516[v518.Name][4])
+                    v518.UIScale.Scale = v516[v518.Name][5] or 1
+                end
+            end
+        end
+    end)
+elseif v440 then
+    v440.MagicHealth.Visible = true
+    v_u_441 = v_u_431
+    v_u_442 = v_u_432
+    v_u_443 = v_u_430
+else
+    v_u_441 = v_u_431
+    v_u_442 = v_u_432
+    v_u_443 = v_u_430
+end
+v_u_24:GetInstanceAddedSignal("Mech" .. v_u_2.Name):Connect(function(p_u_519)
+    -- upvalues: (ref) v_u_330
+    v_u_330 = p_u_519
+    p_u_519:GetPropertyChangedSignal("Parent"):Connect(function()
+        -- upvalues: (copy) p_u_519, (ref) v_u_330
+        if not p_u_519.Parent then
+            v_u_330 = nil
+        end
+    end)
+end)
+v_u_24:GetInstanceAddedSignal("EmoteSync"):Connect(function(p520)
+    -- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_19
+    p520.MaxDistance = 500
+    p520.Enabled = true
+    p520.Frame.Size = UDim2.new(0, 0, 1, 0)
+    local v521 = p520.Adornee
+    local v522 = p520:FindFirstChild("Frame")
+    if p520.PlayerToHideFrom == v_u_2 then
+        return game:GetService("Debris"):AddItem(p520, 0)
+    end
+    local v523 = nil
+    while task.wait(0.075) and (p520 and (p520.Parent and (p520.Parent.Parent and (v521 and (v521.Parent and (v521.Parent.Parent and v521.Parent.Parent.Parent)))))) do
+        local v524 = v_u_3.PrimaryPart
+        local v525 = v524 and (v524.Position - v521.Position).magnitude <= 22 and true or false
+        if v523 == v525 or not v522 then
+            v525 = v523
+        else
+            v_u_19:Create(v522, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                ["Size"] = v525 and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 0, 1, 0)
+            }):Play()
+            v_u_19:Create(v522.TextButton, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                ["TextTransparency"] = v525 and 0 or 1.5
+            }):Play()
+        end
+        v523 = v525
+    end
+end)
+local v_u_526 = false
+local v_u_527 = workspace:GetAttribute("RankedOnes")
+local v_u_528 = workspace:GetAttribute("NoHoldingX")
+local v_u_529 = nil
+local v_u_530 = tick()
+local v_u_531 = tick()
+local v_u_532 = false
+local v_u_533 = v_u_24:GetTagged("SingleTree")
+if v_u_527 then
+    local function v_u_536(p534)
+        -- upvalues: (copy) v_u_2
+        local v535 = p534:GetAttribute("CAN")
+        if v535 and not string.find(v535, v_u_2.UserId) then
+            game:GetService("Debris"):AddItem(p534, 0)
+            p534:Destroy()
+        end
+    end
+    v_u_24:GetInstanceAddedSignal("CharacterSelection"):Connect(v_u_536)
+    workspace:GetAttributeChangedSignal("CantSwitch"):Once(function()
+        -- upvalues: (copy) v_u_3, (ref) v_u_526
+        if v_u_3:GetAttribute("Character") == "Ninja" then
+            v_u_526 = true
+            task.delay(0.5, function()
+                -- upvalues: (ref) v_u_526
+                v_u_526 = false
+            end)
+        end
+    end)
+    task.spawn(function()
+        -- upvalues: (copy) v_u_24, (copy) v_u_536, (ref) v_u_529
+        for _, v537 in pairs(v_u_24:GetTagged("CharacterSelection")) do
+            v_u_536(v537)
+        end
+        local v538 = tick()
+        repeat
+            task.wait()
+        until shared.AverageFPS or tick() - v538 > 60
+        v_u_529 = shared.AverageFPS
+    end)
+end
+local v_u_539 = false
+local v_u_540, v_u_541
+if v_u_3:GetAttribute("Character") == "Ninja" then
+    v_u_540 = true
+    task.delay(0.5, function()
+        -- upvalues: (ref) v_u_540
+        v_u_540 = false
+    end)
+    v_u_541 = v_u_540
+else
+    v_u_540 = false
+    v_u_541 = v_u_540
+end
+local v_u_542 = true
+v_u_304 = workspace.Thrown:FindFirstChild("Donation Leaderboard")
+if v_u_304 then
+    v_u_304 = v_u_304:FindFirstChild("a")
+    v_u_304 = v_u_304 or nil
+end
+local v_u_543 = false
+local v_u_544 = false
+local v_u_545 = 0
+local v_u_546 = nil
+local v_u_547 = nil
+local v_u_548 = {
+    0,
+    0,
+    0,
+    0,
+    0,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0
+}
+local v_u_549 = {
+    165,
+    165,
+    165,
+    165,
+    165,
+    255,
+    215,
+    230,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    245,
+    230,
+    215,
+    255,
+    165,
+    165,
+    165,
+    165,
+    165
+}
+local v_u_550 = {
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    110,
+    135,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    215,
+    135,
+    110,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255
+}
+local v_u_551 = nil
+local v_u_552 = nil
+local v_u_553 = nil
+local v_u_554 = nil
+task.delay(2, function()
+    -- upvalues: (ref) v_u_543
+    v_u_543 = true
+end)
+local v_u_555 = nil
+local v_u_556 = workspace.Thrown.Aurora
+local v_u_557 = false
+local v_u_558 = false
+local v_u_559 = v_u_5
+game:GetService("RunService").Heartbeat:Connect(function(p560)
+    -- upvalues: (copy) v_u_3, (copy) v_u_35, (copy) v_u_37, (ref) v_u_330, (copy) v_u_2, (copy) v_u_5, (copy) v_u_43, (ref) v_u_544, (ref) v_u_557, (copy) v_u_556, (copy) v_u_19, (copy) v_u_24, (ref) v_u_555, (ref) v_u_553, (copy) v_u_28, (copy) v_u_66, (ref) v_u_545, (copy) v_u_39, (ref) v_u_546, (ref) v_u_547, (ref) v_u_551, (copy) v_u_548, (ref) v_u_552, (copy) v_u_549, (ref) v_u_554, (copy) v_u_550, (ref) v_u_304, (copy) v_u_6, (ref) v_u_542, (copy) v_u_12, (ref) v_u_543, (copy) v_u_10, (ref) v_u_443, (ref) v_u_441, (ref) v_u_442, (ref) v_u_331, (copy) v_u_7, (copy) v_u_26, (ref) v_u_541, (ref) v_u_559, (ref) v_u_558, (ref) v_u_539, (ref) v_u_22, (ref) v_u_23, (ref) v_u_25, (copy) v_u_67, (copy) v_u_68, (copy) v_u_528, (copy) v_u_527, (ref) v_u_529, (ref) v_u_530, (ref) v_u_69, (ref) v_u_47, (ref) v_u_334, (copy) v_u_255, (ref) v_u_531, (copy) v_u_533, (ref) v_u_532
+    if v_u_3:FindFirstChild("DelayRespawn") then
+        if not v_u_35.Visible then
+            v_u_35.Visible = true
+        end
+    elseif v_u_35.Visible then
+        v_u_37()
+    end
+    if not v_u_330 and (v_u_3:GetAttribute("InMech") and v_u_3:FindFirstChild("Mech")) then
+        v_u_330 = v_u_3:FindFirstChild("Mech")
+    end
+    if (v_u_2:GetAttribute("Character") == "Monster" or v_u_3:FindFirstChild("CharExclusion")) and (v_u_2:GetAttribute("Unreliable") and (v_u_5:GetState() == Enum.HumanoidStateType.Freefall or v_u_2:GetAttribute("ForcedReliable"))) then
+        game.ReplicatedStorage.UnreliableRemoteEvent:FireServer(v_u_3:GetPivot())
+    end
+    if v_u_3:FindFirstChild("Double") and not v_u_3:FindFirstChild("Ragdoll") then
+        v_u_43(0)
+    end
+    if (v_u_544 or game.Lighting.ClockTime ~= 12.302) and (not v_u_2:GetAttribute("S_DayNight") and (not v_u_2:GetAttribute("S_DayNight") and v_u_557)) then
+        v_u_557 = false
+        v_u_544 = false
+        for _, v561 in pairs(v_u_556:GetDescendants()) do
+            if v561:IsA("Beam") then
+                v_u_19:Create(v561, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                    ["Brightness"] = 0
+                }):Play()
+                v561.Enabled = false
+            end
+        end
+        for _, v562 in pairs(v_u_24:GetTagged("daynightcloudgone")) do
+            v562:Destroy()
+        end
+        v_u_555 = nil
+        v_u_553 = false
+        v_u_28()
+    end
+    if v_u_2:GetAttribute("S_DayNight") and v_u_66.CameraType ~= Enum.CameraType.Scriptable then
+        v_u_557 = true
+        v_u_544 = true
+        if tick() - v_u_545 > 0.01 then
+            v_u_545 = tick()
+            game.Lighting.ClockTime = workspace.Terrain.Time.Value
+            local v563 = game.Lighting.ClockTime
+            local v564
+            if v563 >= 18 and v563 <= 24 then
+                v564 = true
+            elseif v563 >= 0 then
+                v564 = v563 <= 5.65
+            else
+                v564 = false
+            end
+            v_u_553 = v564
+            if v_u_555 ~= v_u_553 then
+                v_u_555 = v_u_553
+                if v_u_553 then
+                    local v565 = Random.new(workspace.Terrain.Time:GetAttribute("Cycle")):NextInteger(1, 10)
+                    local v566 = Instance.new("Folder")
+                    v566.Name = "Gone"
+                    v566:SetAttribute("Slow", true)
+                    v566:AddTag("daynightcloudgone")
+                    v566.Parent = workspace.Terrain.Clouds
+                    if v565 == 1 then
+                        v_u_39({
+                            ["Goal"] = "Gaze"
+                        })
+                        v_u_19:Create(game.Lighting.Atmosphere, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                            ["Density"] = 0.213
+                        }):Play()
+                        local v567 = workspace.Thrown.Aurora
+                        for _, v568 in pairs(v567:GetDescendants()) do
+                            if v568:IsA("Beam") then
+                                v568.Brightness = 0
+                                v568.Enabled = true
+                                v_u_19:Create(v568, TweenInfo.new(Random.new():NextNumber(7, 14) * 2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                                    ["Brightness"] = v568:GetAttribute("Original")
+                                }):Play()
+                            end
+                        end
+                    end
+                else
+                    for _, v569 in pairs(v_u_24:GetTagged("daynightcloudgone")) do
+                        v569:Destroy()
+                    end
+                    if v_u_556:FindFirstChildWhichIsA("Beam", true).Brightness ~= 0 then
+                        v_u_19:Create(game.Lighting.Atmosphere, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                            ["Density"] = 0.27
+                        }):Play()
+                        for _, v570 in pairs(v_u_556:GetDescendants()) do
+                            if v570:IsA("Beam") then
+                                v_u_19:Create(v570, TweenInfo.new(Random.new():NextNumber(7, 14) * 1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                                    ["Brightness"] = 0
+                                }):Play()
+                            end
+                        end
+                        task.delay(21, function()
+                            -- upvalues: (ref) v_u_553, (ref) v_u_556
+                            if not v_u_553 then
+                                for _, v571 in pairs(v_u_556:GetDescendants()) do
+                                    if v571:IsA("Beam") then
+                                        v571.Enabled = false
+                                        v571.Brightness = 0
+                                    end
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+            local v572 = game.Lighting
+            local v573 = v563 * 0.2617993877991494 + 3.141592653589793
+            v572.Brightness = math.cos(v573) * 0.1 + 2
+            local v574 = v563 * 0.2617993877991494 + 3.141592653589793
+            v_u_546 = math.cos(v574) * 20 + 100
+            game.Lighting.OutdoorAmbient = Color3.fromRGB(v_u_546, v_u_546, v_u_546)
+            local v575 = game.Lighting
+            local v576 = v563 * 0.5235987755982988
+            v575.ShadowSoftness = math.cos(v576) * 0.2 + 0.8
+            local v577 = math.ceil(v563)
+            v_u_547 = math.clamp(v577, 1, 24)
+            v_u_551 = (v_u_548[v_u_547 % 24 + 1] - v_u_548[v_u_547]) * (v563 - v_u_547 + 1) + v_u_548[v_u_547]
+            v_u_552 = (v_u_549[v_u_547 % 24 + 1] - v_u_549[v_u_547]) * (v563 - v_u_547 + 1) + v_u_549[v_u_547]
+            v_u_554 = (v_u_550[v_u_547 % 24 + 1] - v_u_550[v_u_547]) * (v563 - v_u_547 + 1) + v_u_550[v_u_547]
+            game.Lighting.ColorShift_Top = Color3.fromRGB(v_u_551, v_u_552, v_u_554)
+        end
+    end
+    local v578 = tick()
+    if v_u_304 then
+        if (v_u_6.Position - v_u_304.Position).magnitude > 15 then
+            v_u_304.CanQuery = false
+        else
+            v_u_304.CanQuery = true
+        end
+        if v_u_542 then
+            v_u_542 = false
+            for _, v_u_579 in pairs(v_u_304.SurfaceGui.Holder.Frame:GetChildren()) do
+                if v_u_579:IsA("TextButton") then
+                    v_u_579.MouseButton1Click:Connect(function()
+                        -- upvalues: (copy) v_u_579, (ref) v_u_2, (ref) v_u_12
+                        local v580 = v_u_579.Text
+                        local v581 = game:GetService("MarketplaceService")
+                        local v582 = v_u_2
+                        local v583 = v_u_12.DonationProducts
+                        local v584 = #v580
+                        v581:PromptProductPurchase(v582, v583[string.sub(v580, 5, v584)])
+                    end)
+                end
+            end
+        end
+    end
+    if v_u_6.Position.Y < -500 and (v_u_543 and v_u_5.Health > 0) then
+        v_u_5.Health = 0
+    end
+    if v_u_10(v_u_3, "CrabCamera") then
+        if v_u_5:GetState() == Enum.HumanoidStateType.FallingDown then
+            v_u_5:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+            if math.random(1, 2) == 1 then
+                v_u_5:ChangeState(Enum.HumanoidStateType.Running)
+            else
+                v_u_5:ChangeState(Enum.HumanoidStateType.Landed)
+            end
+        end
+    else
+        if v_u_5:GetState() == Enum.HumanoidStateType.FallingDown and not v_u_10(v_u_3, "Ragdoll") then
+            v_u_5:ChangeState(Enum.HumanoidStateType.GettingUp)
+        end
+        if v_u_5:GetState() ~= Enum.HumanoidStateType.FallingDown and v_u_10(v_u_3, "Ragdoll") then
+            v_u_5:ChangeState(Enum.HumanoidStateType.FallingDown)
+        end
+    end
+    local v585 = v_u_3:FindFirstChild("NewMethod")
+    local v586
+    if v585 then
+        v586 = v585.Value
+    else
+        v586 = nil
+    end
+    if v586 then
+        workspace.CurrentCamera.CameraSubject = v586.Humanoid
+    end
+    local v587 = v_u_443 + 0
+    local v588 = v_u_441 + -1.25
+    local v589 = v_u_442 + 0
+    local v590 = Vector3.new(v587, v588, v589)
+    local v591 = v_u_3:FindFirstChild("CrabCamera")
+    if v_u_331 and (v_u_331.Value and v_u_331.Value.Parent) then
+        v590 = v590 + v_u_6.CFrame:toObjectSpace(v_u_331.Value.RootPart.Root.UpperMouth["Bone.002"]["Bone.003"].WorldCFrame).Position
+    elseif v591 and (v591.Value and v591.Value.Parent) then
+        v590 = v590 + v_u_6.CFrame:toObjectSpace(v591.Value.RootPart.Body.WorldCFrame).Position
+    elseif v_u_330 and v_u_330:GetAttribute("Ready") then
+        v590 = v590 + v_u_6.CFrame:toObjectSpace(v_u_330.RootPart.MasterBone.Root.UpperTorso.WorldCFrame).Position
+    elseif v_u_7 and (v_u_7.Parent and (v_u_26 and (v_u_26.Parent and not v_u_3:GetAttribute("BreakJointed")))) then
+        if v_u_541 or v_u_3:GetAttribute("NoHeadFollow") then
+            v590 = v590 + Vector3.new(0, 1.25, 0)
+        elseif v586 then
+            v590 = v590 + v586.HumanoidRootPart.CFrame:toObjectSpace(v586.Head.CFrame).p
+        else
+            v590 = v590 + v_u_6.CFrame:toObjectSpace(v_u_7.CFrame).p
+        end
+    end
+    if v_u_331 and not v_u_331.Parent then
+        v_u_331 = nil
+    end
+    if not v_u_3:GetAttribute("NoHeadLerp") then
+        local v592 = v_u_3:GetAttribute("ClonedChar")
+        local v593 = v_u_5
+        local v594
+        if v586 then
+            v594 = v586.PrimaryPart
+        else
+            v594 = v_u_6
+        end
+        local v595 = v_u_3:FindFirstChild("NewCam")
+        if v595 then
+            local v596 = v595.Value
+            v593 = v596:FindFirstChildOfClass("Humanoid")
+            if v593 then
+                v594 = v596.HumanoidRootPart
+                v_u_559 = v593
+                if workspace.CurrentCamera.CameraSubject ~= v596.Torso and not (v_u_3:FindFirstChild("SkippedEmote") or v_u_558) then
+                    v_u_558 = true
+                    workspace.CurrentCamera.CameraSubject = v596.Torso
+                end
+            else
+                v595:Destroy()
+                v592 = nil
+            end
+        elseif not v586 and (workspace.CurrentCamera.CameraType ~= Enum.CameraType.Scriptable and v_u_5.Health > 0) then
+            workspace.CurrentCamera.CameraSubject = v_u_5
+        end
+        local v597 = 1 - 0.000025 ^ p560
+        local v598
+        if v586 then
+            v598 = v586.Humanoid.CameraOffset:lerp(v590, v597)
+        else
+            v598 = v_u_5.CameraOffset:lerp(v590, v597)
+        end
+        local v599 = (v594.Position - (v594.Position + v598)).magnitude
+        local v600 = v594.CFrame * CFrame.new(Vector3.new(0, 1.5, 0) + v598)
+        if not v592 and (not v586 and (v598 ~= v598 or (v599 > 1000 or (v600.Position - v594.Position).magnitude > 1000))) then
+            v598 = Vector3.new()
+        end
+        if v586 then
+            v586.Humanoid.CameraOffset = v598
+        else
+            v_u_5.CameraOffset = v598
+        end
+        if v593.Health == 0 and not (v_u_3:FindFirstChild("0HpCamBp") or (v592 or v_u_539)) then
+            v_u_539 = true
+            game:GetService("RunService").RenderStepped:Connect(function()
+                -- upvalues: (ref) v_u_66, (ref) v_u_3, (ref) v_u_559
+                if v_u_66.CameraType ~= Enum.CameraType.Scriptable and not (v_u_3:GetAttribute("LetGoOfCamera") or v_u_3:FindFirstChild("SkippedEmote")) then
+                    local v601 = v_u_66
+                    v601.CFrame = v601.CFrame + v_u_559.CameraOffset
+                end
+            end)
+        end
+    end
+    if (v_u_22 or v_u_23) and (v_u_5.FloorMaterial == Enum.Material.Air and not v_u_25) then
+        local v602 = v_u_3:FindFirstChild("DoingEmote") and 0.25 or 0.94
+        local v603 = v_u_6
+        v603.Velocity = v603.Velocity * Vector3.new(v602, 1, v602)
+    end
+    if (not (v_u_67 or v_u_68) or v_u_528) and ((v_u_527 and (v_u_529 and v_u_529 > 30) or v_u_528) and (v578 - v_u_530 > 1 and (workspace.DistributedGameTime > 120 and not workspace.Thrown:FindFirstChild("DebrisggbbTf")))) then
+        v_u_39({
+            ["Goal"] = "FloorMaterial"
+        })
+    end
+    v_u_530 = v578
+    if v_u_69 then
+        local v604 = v_u_5.MoveDirection:Dot(workspace.CurrentCamera.CFrame.LookVector)
+        local v605 = v_u_67 and 0 or v_u_5.MoveDirection:Dot(workspace.CurrentCamera.CFrame.RightVector)
+        if v_u_5.MoveDirection == Vector3.new() or (math.abs(v605) >= 0.85 or v604 < -0.1) then
+            if v_u_47 then
+                v_u_47 = false
+                v_u_334()
+            end
+        elseif not v_u_47 then
+            v_u_47 = true
+            v_u_334()
+        end
+        if v_u_47 and not v_u_255.IsPlaying then
+            v_u_255:Play()
+        end
+    end
+    if (v_u_23 or v_u_22) and not (v_u_3:FindFirstChild("DoingEmote") or v_u_23 and v_u_23:GetAttribute("Endlag")) or (v_u_25 or v_u_527) then
+        v_u_532 = false
+    else
+        if v_u_6.Position.Y <= 456.085 or v_u_6.Position.Y >= 490.147 then
+            v_u_532 = false
+            return
+        end
+        if v578 - v_u_531 > 2 then
+            v_u_531 = v578
+            local v606 = false
+            for _, v607 in pairs(v_u_533) do
+                if (v607.Position - v_u_6.Position).magnitude < 20 then
+                    v606 = true
+                    break
+                end
+                task.wait()
+            end
+            if v606 then
+                if v_u_532 then
+                    v_u_39({
+                        ["Goal"] = "Tree Sava"
+                    })
+                    local v608 = Instance.new("BodyVelocity")
+                    v608.MaxForce = Vector3.new(40000, 40000, 40000)
+                    v608.Velocity = v_u_6.CFrame.lookVector * -40
+                    v608.Parent = v_u_6
+                    game:service("Debris"):AddItem(v608, 0.15)
+                    v_u_532 = false
+                else
+                    v_u_532 = true
+                end
+            else
+                v_u_532 = false
+                return
+            end
+        end
+    end
+end)
+local v_u_609 = workspace:FindFirstChild("Total Kills Leaderboard") or workspace.Map:FindFirstChild("Total Kills Leaderboard")
+local function v_u_624()
+    -- upvalues: (copy) v_u_609, (copy) v_u_2, (copy) v_u_382
+    if not v_u_609 then
+        return
+    end
+    local v610 = v_u_2:GetAttribute("Kills")
+    local v611 = {}
+    local v612 = "A TITLE"
+    local v613 = 0
+    for v614, v615 in pairs(v_u_609:GetAttributes()) do
+        local v616 = #v614
+        if string.sub(v614, 2, v616) == "Minimumkills" then
+            table.insert(v611, { v614, v615 })
+        end
+    end
+    table.sort(v611, function(p617, p618)
+        return p617[2] < p618[2]
+    end)
+    for _, v619 in pairs(v611) do
+        if v610 < v619[2] then
+            v613 = v619[1]
+            local _ = v619[2]
+            break
+        end
+    end
+    local v620 = v613 ~= "cMinimumkills" and "RANK PROMOTION" or v612
+    local v621 = v_u_609:GetAttribute(v613) or 0
+    local v622 = tonumber(v621) + 1 - (v_u_2:GetAttribute("Kills") or 0)
+    if v622 <= 0 then
+        v_u_609:FindFirstChild("Goal", true).Text = ""
+    else
+        local v623 = v_u_382(v622)
+        v_u_609:FindFirstChild("Goal", true).Text = string.format("<font color=\"rgb(197, 255, 143)\">%s</font> MORE KILLS FOR %s", v623, v620)
+    end
+end
+if v_u_609 then
+    v_u_609:GetAttributeChangedSignal("Update"):Connect(v_u_624)
+end
+v_u_2:GetAttributeChangedSignal("Kills"):Connect(v_u_624)
+v_u_2:GetAttributeChangedSignal("CountdownRanked"):Connect(function()
+    -- upvalues: (copy) v_u_2, (copy) v_u_19
+    local v625 = game.ReplicatedStorage.Countdown:Clone()
+    v625.Parent = v_u_2.PlayerGui
+    shared.sfx({
+        ["SoundId"] = "rbxassetid://13356393533",
+        ["Parent"] = workspace,
+        ["Name"] = "Countdown",
+        ["Volume"] = 2
+    }):Play()
+    for v626 = 1, 4 do
+        local v627 = v625[v626 == 4 and "Go" or (4 - v626 or "Go")]
+        local v628 = v627.Size
+        v627.Size = UDim2.new(0, 0, 0, 0)
+        if v626 < 4 then
+            v627.Rotation = math.random(-55, 55)
+        end
+        v627.Visible = true
+        v627.ZIndex = v627.ZIndex + 1
+        v_u_19:Create(v627, TweenInfo.new(0.3, v626 < 4 and Enum.EasingStyle.Back or Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            ["Size"] = v628,
+            ["Rotation"] = 0
+        }):Play()
+        local v629
+        if v626 == 4 then
+            v629 = v627:Clone()
+            v629.Size = UDim2.new(0, 0, 0, 0)
+            v629.Visible = true
+            v629.ZIndex = v629.ZIndex - 1
+            v629.Rotation = 0
+            v629.ImageLabel.ImageTransparency = 0.5
+            v629.Parent = v627.Parent
+            v_u_19:Create(v629, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                ["Size"] = v628
+            }):Play()
+            v_u_19:Create(v629.ImageLabel, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                ["Size"] = UDim2.new(2, 0, 2, 0),
+                ["ImageTransparency"] = 0.9
+            }):Play()
+        else
+            v629 = nil
+        end
+        wait(v626 == 4 and 0.625 or 1)
+        if v626 == 4 then
+            for _, v_u_630 in pairs({ v627, v629 }) do
+                v_u_19:Create(v_u_630, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+                    ["Size"] = UDim2.new(0, 0, 0, 0)
+                }):Play()
+                task.delay(0.15, function()
+                    -- upvalues: (copy) v_u_630
+                    v_u_630:Destroy()
+                end)
+            end
+        else
+            v627:Destroy()
+        end
+    end
+end)
+pcall(function()
+    -- upvalues: (copy) v_u_624
+    if shared.lastxd then
+        shared.lastxd()
+        shared.lastxd = nil
+    end
+    v_u_624()
+end)
+if (v_u_2:GetAttribute("DiedTime") or 0) >= 1 then
+    local v_u_631 = game.ReplicatedStorage.Resources.Vig:Clone()
+    v_u_631.Parent = v_u_2.PlayerGui.ShiftLock
+    workspace:GetAttributeChangedSignal("FoundWinner"):Connect(function()
+        -- upvalues: (copy) v_u_19, (copy) v_u_631
+        v_u_19:Create(v_u_631, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            ["ImageTransparency"] = 1
+        }):Play()
+    end)
+end
+task.delay(0.1, function()
+    -- upvalues: (copy) v_u_2, (copy) v_u_39
+    if v_u_2:GetAttribute("Teammate") then
+        while task.wait(0.25) do
+            local v632 = (v_u_2:GetAttribute("DiedTime") or 0) >= 2 and v_u_2.PlayerGui:FindFirstChild("Hotbar")
+            if v632 then
+                v632.Enabled = false
+            end
+            v_u_39({
+                ["Goal"] = "Camera CFrame",
+                ["CFrame"] = workspace.CurrentCamera.CFrame
+            })
+        end
+    end
+end)
+local v633 = v_u_3:FindFirstChild("IntroBind") or v_u_3:WaitForChild("IntroBind", 2)
+if not v633 then
+    return
+end
+task.delay(0, function()
+    -- upvalues: (copy) v_u_1
+    if not workspace:GetAttribute("zzz") then
+        workspace:SetAttribute("zzz", true)
+        print("CLIENT LOADED", tick() - v_u_1)
+    end
+end)
+if v633 then
+    local v634 = tick()
+    while true do
+        if v_u_5.WalkSpeed > 0 and v_u_5.MoveDirection ~= Vector3.new() then
+            v_u_39({
+                ["Goal"] = "Disable Intro"
+            })
+        end
+        task.wait()
+        if tick() - v634 > 2.5 or not v633.Parent then
+            if tostring(v_u_3) == "YungCrepetics" then
+                return
+            end
+            local v_u_635 = game:GetService("ExperienceNotificationService")
+            local v636, v637 = pcall(function()
+                -- upvalues: (copy) v_u_635
+                return v_u_635:CanPromptOptInAsync()
+            end)
+            if v636 and v637 then
+                local _, _ = pcall(function()
+                    -- upvalues: (copy) v_u_635
+                    v_u_635:PromptOptIn()
+                end)
+            end
+            goto l107
+        end
+    end
+else
+    ::l107::
+    return
+end
