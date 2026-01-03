@@ -1,0 +1,98 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+
+local player = Players.LocalPlayer
+
+StarterGui:SetCore("SendNotification", {
+	Title = "Korblox and headless";
+	Text = "By Cap(CapLonerPo)";
+	Duration = 5;
+})
+
+local HEADLESS_MESH_ID = "rbxassetid://1095708"
+local KORBLOX_MESH_ID = "rbxassetid://101851696"
+local KORBLOX_TEXTURE_ID = "rbxassetid://101851254"
+local DARK_GREY_COLOR = Color3.fromRGB(64, 64, 64)
+
+local function removeFace(head)
+	local face = head:FindFirstChild("face")
+	if face then face:Destroy() end
+end
+
+local function applyHeadless(head)
+	if not head then return end
+	head.Transparency = 1
+	head.CanCollide = false
+	removeFace(head)
+
+	local mesh = head:FindFirstChildOfClass("SpecialMesh") or Instance.new("SpecialMesh", head)
+	mesh.MeshType = Enum.MeshType.FileMesh
+	mesh.MeshId = HEADLESS_MESH_ID
+	mesh.Scale = Vector3.new(0.001, 0.001, 0.001)
+
+	head:GetPropertyChangedSignal("Transparency"):Connect(function()
+		if head.Transparency ~= 1 then head.Transparency = 1 end
+	end)
+end
+
+local function applyKorbloxR6(character)
+	local rightLeg = character:FindFirstChild("Right Leg")
+	if not rightLeg then return end
+
+	for _, child in ipairs(rightLeg:GetChildren()) do
+		if child:IsA("SpecialMesh") or child:IsA("CharacterMesh") then
+			child:Destroy()
+		end
+	end
+
+	rightLeg.Color = DARK_GREY_COLOR
+	local korbloxMesh = Instance.new("SpecialMesh", rightLeg)
+	korbloxMesh.MeshType = Enum.MeshType.FileMesh
+	korbloxMesh.MeshId = KORBLOX_MESH_ID
+	korbloxMesh.TextureId = KORBLOX_TEXTURE_ID
+	korbloxMesh.Scale = Vector3.new(1, 1, 1)
+end
+
+local function applyKorbloxR15(character)
+	local rightUpperLeg = character:FindFirstChild("RightUpperLeg")
+	if not rightUpperLeg then return end
+
+	rightUpperLeg.Transparency = 1
+	if character:FindFirstChild("RightLowerLeg") then character.RightLowerLeg.Transparency = 1 end
+	if character:FindFirstChild("RightFoot") then character.RightFoot.Transparency = 1 end
+
+	local korbloxLeg = character:FindFirstChild("KorbloxLeg") or Instance.new("Part", character)
+	korbloxLeg.Name = "KorbloxLeg"
+	korbloxLeg.Size = Vector3.new(1, 2, 1)
+	korbloxLeg.CanCollide = false
+	korbloxLeg.Color = DARK_GREY_COLOR
+
+	local mesh = korbloxLeg:FindFirstChildOfClass("SpecialMesh") or Instance.new("SpecialMesh", korbloxLeg)
+	mesh.MeshType = Enum.MeshType.FileMesh
+	mesh.MeshId = KORBLOX_MESH_ID
+	mesh.TextureId = KORBLOX_TEXTURE_ID
+
+	local weld = korbloxLeg:FindFirstChildOfClass("Weld") or Instance.new("Weld", korbloxLeg)
+	weld.Part0 = rightUpperLeg
+	weld.Part1 = korbloxLeg
+	weld.C0 = CFrame.new(0, -0.8, 0)
+end
+
+local function applyCharacter(character)
+	task.wait(0.1)
+	local head = character:FindFirstChild("Head")
+	if head then applyHeadless(head) end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		if humanoid.RigType == Enum.HumanoidRigType.R6 then
+			applyKorbloxR6(character)
+		else
+			applyKorbloxR15(character)
+		end
+	end
+end
+
+if player.Character then applyCharacter(player.Character) end
+player.CharacterAdded:Connect(applyCharacter)
