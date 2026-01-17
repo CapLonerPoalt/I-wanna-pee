@@ -1,0 +1,260 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local VIM = game:GetService("VirtualInputManager")
+
+local LP = Players.LocalPlayer
+local Char = LP.Character or LP.CharacterAdded:Wait()
+local Hum = Char:WaitForChild("Humanoid")
+local HRP = Char:WaitForChild("HumanoidRootPart")
+
+LP.CharacterAdded:Connect(function(c)
+    Char = c
+    Hum = c:WaitForChild("Humanoid")
+    HRP = c:WaitForChild("HumanoidRootPart")
+end)
+
+local VOID_POS = Vector3.new(-294.6696472167969, 346.9127502441406, -267.44158935546875)
+local VOID_CF = CFrame.new(VOID_POS)
+
+local PublicFarm = false
+local AltFarm = false
+local FlyMethod = false
+local Role = "Victim"
+local SelectedAlts = {}
+local SelectedPlayers = {}
+
+local BoxModel = nil
+local noclipConn = nil
+local victimDeathConn = nil
+
+local function SetNoclip(on)
+    if noclipConn then noclipConn:Disconnect() noclipConn=nil end
+    if on then
+        noclipConn=RunService.Stepped:Connect(function()
+            if not Char then return end
+            for _,part in pairs(Char:GetDescendants()) do
+                if part:IsA("BasePart") then part.CanCollide=false end
+            end
+        end)
+    end
+end
+
+local function TweenTo(cf,speed)
+    if not HRP or not HRP.Parent then return end
+    local d=(HRP.Position-cf.Position).Magnitude
+    local t=math.clamp(d/(speed or 120),0.02,6)
+    local tween=TweenService:Create(HRP,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=cf})
+    tween:Play()
+    tween.Completed:Wait()
+end
+
+local function M1()
+    pcall(function()
+        VIM:SendMouseButtonEvent(0,0,0,true,game,0)
+        task.wait(0.03)
+        VIM:SendMouseButtonEvent(0,0,0,false,game,0)
+    end)
+end
+
+local function PressAbilities()
+    for i=1,4 do
+        VIM:SendKeyEvent(true,Enum.KeyCode[""..i],false,game)
+        VIM:SendKeyEvent(false,Enum.KeyCode[""..i],false,game)
+        task.wait(0.05)
+    end
+end
+
+local function CreateBox()
+    if BoxModel then BoxModel:Destroy() end
+    BoxModel=Instance.new("Model",workspace)
+    local function part(size,cf)
+        local p=Instance.new("Part")
+        p.Anchored=true
+        p.Material=Enum.Material.Rock
+        p.Size=size
+        p.CFrame=cf
+        p.Parent=BoxModel
+    end
+    part(Vector3.new(30,2,30),CFrame.new(VOID_POS-Vector3.new(0,3,0)))
+    part(Vector3.new(30,18,2),CFrame.new(VOID_POS+Vector3.new(0,6,-15)))
+    part(Vector3.new(30,18,2),CFrame.new(VOID_POS+Vector3.new(0,6,15)))
+    part(Vector3.new(2,18,30),CFrame.new(VOID_POS+Vector3.new(-15,6,0)))
+    part(Vector3.new(2,18,30),CFrame.new(VOID_POS+Vector3.new(15,6,0)))
+end
+
+local function PlaceVictimInBox()
+    SetNoclip(true)
+    TweenTo(VOID_CF,120)
+    SetNoclip(false)
+end
+
+local function AttachVictimDeathHandler()
+    if victimDeathConn then victimDeathConn:Disconnect() end
+    victimDeathConn=Hum.Died:Connect(function()
+        task.wait(0.12)
+        if Role=="Victim" then
+            HRP.CFrame=VOID_CF
+            SetNoclip(false)
+        end
+    end)
+end
+
+local function ResolveSelectedAlts()
+    local out={}
+    for _,entry in ipairs(SelectedAlts) do
+        local uname=entry:match("%((.-)%)")
+        if uname then
+            local p=Players:FindFirstChild(uname)
+            if p then table.insert(out,p) end
+        end
+    end
+    return out
+end
+
+local Window=WindUI:CreateWindow({Title="Auto Kill Farm", Author="by CapLonerPo", Icon="skull", Folder="AutoKillFarm", Size=UDim2.fromOffset(650,550), Theme="Light"})
+
+local Tab1=Window:Tab({Title="Public Farm", Icon="sword"})
+local Tab2=Window:Tab({Title="Farm On Alt", Icon="shield"})
+local Tab3=Window:Tab({Title="Fly Method", Icon="rocket"})
+
+Tab1:Section({Title="Auto Kill Farm", Author="by CapLonerPo"}):Toggle({
+    Title="Public Farm",
+    Callback=function(v)
+        PublicFarm=v
+        if v then
+            task.spawn(function()
+                while PublicFarm do
+                    local targets={}
+                    for _,p in pairs(Players:GetPlayers()) do
+                        if p~=LP and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                            table.insert(targets,p)
+                        end
+                    end
+                    if #targets==0 then
+                        WindUI:Notify({Title="Public Farm", Content="No targets found.", Duration=3})
+                        task.wait(2)
+                    else
+                        local nearest
+                        local dist=math.huge
+                        for _,t in pairs(targets) do
+                            local tHRP=t.Character:FindFirstChild("HumanoidRootPart")
+                            if tHRP then
+                                local d=(tHRP.Position-HRP.Position).Magnitude
+                                if d<dist then
+                                    dist=d
+                                    nearest=t
+                                end
+                            end
+                        end
+                        if nearest and nearest.Character and nearest.Character:FindFirstChild("HumanoidRootPart") then
+                            local tHRP=nearest.Character.HumanoidRootPart
+                            TweenTo(tHRP.CFrame*CFrame.new(0,0,-2),140)
+                            PressAbilities()
+                            M1()
+                        end
+                    end
+                    task.wait(0.1)
+                end
+            end)
+        end
+    end
+})
+
+Tab2:Section({Title="Farm On Alt Toggle"}):Toggle({
+    Title="Farm On Alt Account",
+    Callback=function(v)
+        AltFarm=v
+        if v then
+            CreateBox()
+            if Role=="Victim" then
+                PlaceVictimInBox()
+                AttachVictimDeathHandler()
+            elseif Role=="The Farmer" then
+                TweenTo(VOID_CF*CFrame.new(0,0,-6),140)
+            end
+        end
+    end
+})
+
+Tab2:Section({Title="Select Role"}):Dropdown({
+    Title="Role",
+    Values={"Victim","The Farmer"},
+    Default="Victim",
+    Callback=function(v)
+        Role=v
+        if v=="Victim" then
+            PlaceVictimInBox()
+            AttachVictimDeathHandler()
+        end
+    end
+})
+
+Tab2:Section({Title="Select Target Players"}):MultiDropdown({
+    Title="Players",
+    Values=(function()
+        local t={}
+        for _,p in pairs(Players:GetPlayers()) do
+            if p~=LP then table.insert(t,p.DisplayName.."("..p.Name..")") end
+        end
+        return t
+    end)(),
+    Callback=function(v)
+        SelectedPlayers=v
+    end
+})
+
+Players.PlayerAdded:Connect(function()
+    local section=Tab2.Sections[3]
+    section:Refresh()
+end)
+Players.PlayerRemoving:Connect(function()
+    local section=Tab2.Sections[3]
+    section:Refresh()
+end)
+
+Tab3:Section({Title="More reliable!"}):Toggle({
+    Title="Fly Method",
+    Callback=function(v)
+        FlyMethod=v
+        if FlyMethod then
+            if Role=="Victim" then
+                HRP.Anchored=true
+                HRP.CFrame=VOID_CF
+            elseif Role=="The Farmer" then
+                local alts=ResolveSelectedAlts()
+                for _,alt in ipairs(alts) do
+                    if alt.Character and alt.Character:FindFirstChild("HumanoidRootPart") then
+                        local tHRP=alt.Character.HumanoidRootPart
+                        TweenTo(tHRP.CFrame*CFrame.new(0,0,-2),140)
+                        PressAbilities()
+                        M1()
+                    end
+                end
+            end
+        else
+            HRP.Anchored=false
+        end
+    end
+})
+
+RunService.Heartbeat:Connect(function()
+    if FlyMethod and Role=="Victim" then
+        if HRP and HRP.Parent then HRP.CFrame=VOID_CF end
+    end
+    if AltFarm and Role=="The Farmer" and not FlyMethod then
+        local alts=ResolveSelectedAlts()
+        for _,alt in ipairs(alts) do
+            if alt.Character and alt.Character:FindFirstChild("HumanoidRootPart") then
+                local tHRP=alt.Character.HumanoidRootPart
+                TweenTo(tHRP.CFrame*CFrame.new(0,0,-2),120)
+                PressAbilities()
+                M1()
+            end
+        end
+    elseif AltFarm and Role=="Victim" and not FlyMethod then
+        PlaceVictimInBox()
+    end
+end)
