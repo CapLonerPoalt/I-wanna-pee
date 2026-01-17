@@ -245,6 +245,43 @@ RunService.Heartbeat:Connect(function()
         if HRP and HRP.Parent then HRP.CFrame=VOID_CF end
     end
     if AltFarm and Role=="The Farmer" and not FlyMethod then
+    local HardRoot = false
+
+Tab3:Section({Title="More reliable!"}):Toggle({
+    Title="Hard Void Root",
+    Callback=function(v)
+        HardRoot = v
+        if not v then
+            if HRP then
+                HRP.Anchored = false
+            end
+        end
+    end
+})
+
+RunService.Heartbeat:Connect(function()
+    if not HardRoot then return end
+
+    if Role == "Victim" then
+        if HRP and HRP.Parent then
+            HRP.Anchored = true
+            HRP.AssemblyLinearVelocity = Vector3.zero
+            HRP.AssemblyAngularVelocity = Vector3.zero
+            HRP.CFrame = VOID_CF
+        end
+    elseif Role == "The Farmer" then
+        local alts = ResolveSelectedAlts()
+        for _,alt in ipairs(alts) do
+            if alt.Character and alt.Character:FindFirstChild("HumanoidRootPart") then
+                local tHRP = alt.Character.HumanoidRootPart
+                HRP.Anchored = false
+                HRP.CFrame = tHRP.CFrame * CFrame.new(0,0,-2)
+                PressAbilities()
+                M1()
+            end
+        end
+    end
+end)
         local alts=ResolveSelectedAlts()
         for _,alt in ipairs(alts) do
             if alt.Character and alt.Character:FindFirstChild("HumanoidRootPart") then
