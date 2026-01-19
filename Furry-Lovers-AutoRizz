@@ -1,0 +1,389 @@
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
+local TextChatService = game:GetService("TextChatService")
+local StarterGui = game:GetService("StarterGui")
+local Lighting = game:GetService("Lighting")
+
+local CONFIG = {
+	MainColor = Color3.fromRGB(255, 65, 65),
+	White = Color3.fromRGB(255, 255, 255),
+	GlassBg = Color3.fromRGB(255, 255, 255),
+	Font = Enum.Font.GothamBold,
+}
+
+local MsgDelay = 2.5
+local Grammar = true
+local Minimized = true
+
+local DATABASE = {
+	["General Rizz"] = {
+		"Are you a magician? Because whenever I look at you, everyone else disappears.",
+		"I'm not a photographer, but I can picture us together.",
+		"Do you have a map? I keep getting lost in your eyes.",
+		"Is your name Google? Because you have everything I’m searching for.",
+		"Are you a keyboard? Because you're just my type.",
+		"I’m learning about important dates. Do you want to be one of them?",
+		"Do you have a Band-Aid? I scraped my knee falling for you.",
+		"If you were a fruit, you'd be a fine-apple.",
+		"I’d say God bless you, but it looks like He already did.",
+		"Are you an interior decorator? Because when you walked in, the room was beautiful.",
+		"I’m not a hoarder but I really want to keep you forever.",
+		"Do you believe in love at first sight, or should I walk by again?",
+		"Is your name Wifi? Because I'm feeling a connection.",
+		"Are you a campfire? Because you're hot and I want s'more.",
+		"Do you have a name, or can I call you mine?",
+		"If I could rearrange the alphabet, I’d put 'U' and 'I' together.",
+		"I’m not a genie, but I can make your dreams come true.",
+		"Are you a library book? Because I’m checking you out.",
+		"Your hand looks heavy—can I hold it for you?",
+		"Is there an airport nearby or is that just my heart taking off?"
+	},
+	["Furry Rizz"] = {
+		"You're looking paw-some today!",
+		"Mind if I paws to admire how cute you are?",
+		"Are you a tail? Cause I'm chasing you.",
+		"Is it hot in here or is it just your fluff?",
+		"I’m not a wolf, but I’d definitely howl for you.",
+		"You’ve got some top-tier beans, honestly.",
+		"Are you a fursuit? Because I want to be close to you.",
+		"You're the whiskers to my snout.",
+		"I think we'd have a fur-tastic time together.",
+		"You're so cute it's actually un-bear-able.",
+		"I'm not a cat, but I'm feline a connection with you.",
+		"Is your fur made of copper? Because I'm Cu-te and you're precious.",
+		"Stop being so paw-fect, it's distracting.",
+		"I'd share my favorite kibble with you any day.",
+		"Are you a chew toy? Because I never want to let go.",
+		"Nice fur, can I pet the owner?",
+		"You make my tail wag without even trying.",
+		"Are you a dragon? Because you’re hoarding all my attention.",
+		"Is your fur 100% fluff? Because you’re 100% mine.",
+		"I’m not a hunter, but I’ve been tracking you all day.",
+		"Your fursona must be a thief, because you stole my heart.",
+		"Wanna go to a con and share a hotel room?",
+		"I'd let you use my tail as a pillow any night.",
+		"Are you a species? Because you're one of a kind."
+	},
+	["E-Girl Rizz"] = {
+		"Your aesthetic is literally 10/10.",
+		"Drop the discord, we'd vibe.",
+		"I'd carry you in any rank.",
+		"Are you a high-refresh rate monitor? Because you're looking smooth.",
+		"You’re the only person I’d stop my stream for.",
+		"Gifted sub to your heart when?",
+		"Are you a GPU? Because you're making my temperature rise.",
+		"You look like you'd be the best duo partner ever.",
+		"My setup is RGB, but you're the only color I see.",
+		"Are you a lag spike? Because you just made my heart skip.",
+		"I'd play support for you any day.",
+		"You're the only main I want to play.",
+		"Your vibe is higher than my FPS.",
+		"Wanna duo for life?",
+		"You're the only reason I don't go AFK.",
+		"I'd buy you a Sanrio plushie just to see you smile.",
+		"Are you a valorant clip? Because you're cracked.",
+		"I'd let you win the 1v1 any day.",
+		"Is your heart a lobby? Because I’m trying to join.",
+		"You're the only person I'd actually use a facecam for."
+	},
+	["Nerdy Rizz"] = {
+		"Are you made of Copper and Tellurium? Because you're CuTe.",
+		"You're just my type.",
+		"My love for you is like pi... never-ending.",
+		"Are you a Wi-Fi signal? Because I'm feeling a really strong connection.",
+		"Are you an auto-clicker? Because you make my heart beat fast.",
+		"You must be the square root of -1, because you can't be real.",
+		"I think you're the CSS to my HTML, you give me style.",
+		"Are you an exponent? Because you raise my level.",
+		"If I were a function, you'd be my domain.",
+		"You're the kernel to my OS.",
+		"I'd never Ctrl+Z our time together.",
+		"Are you a motherboard? Because I'd like to be your component.",
+		"You satisfy my inner boolean.",
+		"You are the semicolon to my code.",
+		"Are you a black hole? Because your gravity is pulling me in.",
+		"If I was an enzyme, I'd be DNA helicase so I could unzip your genes.",
+		"Are you an electron? Because you're totally attractive.",
+		"You're the 404 error of my life, because I can't find anyone like you.",
+		"Are you a script? Because you're executing perfectly in my mind.",
+		"My love for you is like a loop—it never breaks."
+	},
+	["Corny Rizz"] = {
+		"Are you a parking ticket? Cause you've got FINE written all over you.",
+		"Do you like raisins? How about a date?",
+		"If you were a triangle, you'd be acute one.",
+		"Life without you is like a broken pencil... pointless.",
+		"Is your name Winter? Because you're coming soon.",
+		"Is your name LinkedIn? Because I'm interested in a professional connection.",
+		"Are you a bank loan? Because you have my interest.",
+		"If you were a vegetable, you'd be a cute-cumber.",
+		"I'm not a genie, but I can make your dreams come true.",
+		"Are you a library book? Because I'm checking you out.",
+		"Do you have a sunburn or are you always this hot?",
+		"Are you the sun? Because you're the center of my universe.",
+		"Are you a beaver? Because daaaaam.",
+		"My name is Cap, but I'm not capping when I say you're beautiful.",
+		"Are you a broom? Because you just swept me off my feet.",
+		"Do you have a map? I just got lost in your eyes... again.",
+		"Are you a camera? Because every time I look at you, I smile.",
+		"Are you a time traveler? Because I see you in my future.",
+		"Is your dad a baker? Because you’re a real cutie pie.",
+		"Are you a lightbulb? Because you brighten up my day."
+	},
+	["Discord Mod"] = {
+		"Hey kitten, I just cleared the general chat so we can talk.",
+		"Check your DMs, I just gave you the 'Princess' role.",
+		"Don't make me use my admin perms to make you mine.",
+		"I'd buy you Nitro but I spent my allowance on limited edition figurines.",
+		"You're looking exceptionally moderate today.",
+		"Status: Thinking about my favorite kitten.",
+		"I just banned everyone who was talking to you, no need to thank me.",
+		"You're the only person I wouldn't slow-mode.",
+		"Mind if I ping you? I just want your attention.",
+		"You're at the top of my member list, and my heart.",
+		"I'd give you ownership of my heart and the server.",
+		"You're the only user I'd never kick for being inactive.",
+		"Is your name Discord? Because you're my favorite place to be.",
+		"I’ve got a custom emoji of your face in my private server.",
+		"You’re the only reason I haven’t deleted the server yet."
+	},
+	["Degenerate"] = {
+		"I haven't showered in three days but I'd do it for you.",
+		"Wanna go to a con and get kicked out together?",
+		"You're the rarest pull in my gacha life.",
+		"I'd sell my rarest skins just to buy you a coffee.",
+		"Go outside? Only if you're out there.",
+		"You're my favorite brainrot.",
+		"I'd stop beating my meat if you were here.",
+		"Are you a body pillow? Because I want to hold you all night.",
+		"Wanna be my duo and carry me through life?",
+		"You're more addictive than a 10-hour loop of phonk music.",
+		"My social battery is at 0% but you're a charger.",
+		"I'd let you use my credit card for V-Bucks.",
+		"I’ve got 10,000 hours in this game, but I’d spend the next 10,000 with you.",
+		"You’re the only irl girl I’ve ever talked to.",
+		"I'd delete my search history for you."
+	}
+}
+
+local USED_LINES = {}
+for category, _ in pairs(DATABASE) do
+	USED_LINES[category] = {}
+end
+
+local function GetRandomLine(category)
+	local lines = DATABASE[category]
+	local used = USED_LINES[category]
+	
+	if #used >= #lines then
+		table.clear(used)
+	end
+	
+	local available = {}
+	for _, line in ipairs(lines) do
+		if not table.find(used, line) then
+			table.insert(available, line)
+		end
+	end
+	
+	local chosen = available[math.random(1, #available)]
+	table.insert(used, chosen)
+	return chosen
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ModernGlassRizz"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = CoreGui
+
+local blur = Instance.new("BlurEffect")
+blur.Size = 0
+blur.Parent = Lighting
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 280, 0, 50)
+MainFrame.Position = UDim2.new(0.5, 0, 0.1, 0)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0)
+MainFrame.BackgroundColor3 = CONFIG.GlassBg
+MainFrame.BackgroundTransparency = 0.15
+MainFrame.BorderSizePixel = 0
+MainFrame.ClipsDescendants = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 20)
+
+local TopBar = Instance.new("Frame", MainFrame)
+TopBar.Size = UDim2.new(1, 0, 0, 50)
+TopBar.BackgroundTransparency = 1
+TopBar.ZIndex = 5
+
+local Title = Instance.new("TextLabel", TopBar)
+Title.Text = "🐾 FURRY LOVE"
+Title.Font = CONFIG.Font
+Title.TextColor3 = Color3.fromRGB(40, 40, 40)
+Title.TextSize = 14
+Title.Size = UDim2.new(1, 0, 0, 35)
+Title.BackgroundTransparency = 1
+
+local MiniBtn = Instance.new("TextButton", TopBar)
+MiniBtn.Size = UDim2.new(1, 0, 0, 20)
+MiniBtn.Position = UDim2.new(0, 0, 1, -20)
+MiniBtn.BackgroundTransparency = 1
+MiniBtn.Text = ""
+MiniBtn.ZIndex = 10
+
+local Pill = Instance.new("Frame", MiniBtn)
+Pill.Size = UDim2.new(0, 35, 0, 4)
+Pill.Position = UDim2.new(0.5, 0, 0.5, 0)
+Pill.AnchorPoint = Vector2.new(0.5, 0.5)
+Pill.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Pill.BackgroundTransparency = 0.8
+Instance.new("UICorner", Pill).CornerRadius = UDim.new(1, 0)
+
+local Container = Instance.new("ScrollingFrame", MainFrame)
+Container.Size = UDim2.new(1, -20, 1, -60)
+Container.Position = UDim2.new(0.5, 0, 0, 55)
+Container.AnchorPoint = Vector2.new(0.5, 0)
+Container.BackgroundTransparency = 1
+Container.ScrollBarThickness = 0
+local UIList = Instance.new("UIListLayout", Container)
+UIList.Padding = UDim.new(0, 8)
+UIList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+UIList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	Container.CanvasSize = UDim2.new(0, 0, 0, UIList.AbsoluteContentSize.Y + 10)
+end)
+
+local function Chat(msg)
+	local finalMsg = Grammar and msg or msg:lower():gsub("%p", "")
+	if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+		local channel = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+		if channel then channel:SendAsync(finalMsg) end
+	else
+		local ev = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents")
+		if ev then ev.SayMessageRequest:FireServer(finalMsg, "All") end
+	end
+end
+
+local function AddTheme(name)
+	local Row = Instance.new("Frame", Container)
+	Row.Size = UDim2.new(0.95, 0, 0, 70)
+	Row.BackgroundColor3 = CONFIG.White
+	Row.BackgroundTransparency = 0.5
+	Instance.new("UICorner", Row).CornerRadius = UDim.new(0, 12)
+
+	local Txt = Instance.new("TextLabel", Row)
+	Txt.Text = name
+	Txt.Font = CONFIG.Font
+	Txt.Size = UDim2.new(1, -20, 0, 25)
+	Txt.Position = UDim2.new(0, 10, 0, 5)
+	Txt.TextXAlignment = Enum.TextXAlignment.Left
+	Txt.TextColor3 = Color3.fromRGB(60, 60, 60)
+	Txt.TextSize = 13
+	Txt.BackgroundTransparency = 1
+
+	local Box = Instance.new("TextBox", Row)
+	Box.Size = UDim2.new(0.6, -15, 0, 25)
+	Box.Position = UDim2.new(0, 10, 0, 35)
+	Box.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+	Box.PlaceholderText = "Count..."
+	Box.Text = ""
+	Box.Font = CONFIG.Font
+	Box.TextSize = 12
+	Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 6)
+
+	local Ok = Instance.new("TextButton", Row)
+	Ok.Size = UDim2.new(0.35, -5, 0, 25)
+	Ok.Position = UDim2.new(0.6, 5, 0, 35)
+	Ok.BackgroundColor3 = CONFIG.MainColor
+	Ok.Text = "SEND"
+	Ok.TextColor3 = CONFIG.White
+	Ok.Font = CONFIG.Font
+	Ok.TextSize = 12
+	Instance.new("UICorner", Ok).CornerRadius = UDim.new(0, 6)
+
+	Ok.MouseButton1Click:Connect(function()
+		local count = tonumber(Box.Text) or 1
+		for i=1, count do
+			Chat(GetRandomLine(name))
+			task.wait(MsgDelay)
+		end
+	end)
+end
+
+local function AddSettings()
+	local Header = Instance.new("TextLabel", Container)
+	Header.Size = UDim2.new(1, 0, 0, 30)
+	Header.Text = "SETTINGS"
+	Header.Font = CONFIG.Font
+	Header.TextColor3 = Color3.fromRGB(100, 100, 100)
+	Header.TextSize = 12
+	Header.BackgroundTransparency = 1
+
+	local DelayBtn = Instance.new("TextButton", Container)
+	DelayBtn.Size = UDim2.new(0.95, 0, 0, 35)
+	DelayBtn.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	DelayBtn.Text = "Delay: " .. MsgDelay .. "s"
+	DelayBtn.Font = CONFIG.Font
+	DelayBtn.TextColor3 = Color3.fromRGB(50, 50, 50)
+	Instance.new("UICorner", DelayBtn).CornerRadius = UDim.new(0, 8)
+
+	DelayBtn.MouseButton1Click:Connect(function()
+		MsgDelay = MsgDelay >= 5 and 1 or MsgDelay + 0.5
+		DelayBtn.Text = "Delay: " .. MsgDelay .. "s"
+	end)
+
+	local GramBtn = Instance.new("TextButton", Container)
+	GramBtn.Size = UDim2.new(0.95, 0, 0, 35)
+	GramBtn.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+	GramBtn.Text = "Grammar: " .. (Grammar and "ON" or "OFF")
+	GramBtn.Font = CONFIG.Font
+	GramBtn.TextColor3 = Color3.fromRGB(50, 50, 50)
+	Instance.new("UICorner", GramBtn).CornerRadius = UDim.new(0, 8)
+
+	GramBtn.MouseButton1Click:Connect(function()
+		Grammar = not Grammar
+		GramBtn.Text = "Grammar: " .. (Grammar and "ON" or "OFF")
+	end)
+end
+
+local keys = {}
+for k in pairs(DATABASE) do table.insert(keys, k) end
+table.sort(keys)
+for _, t in ipairs(keys) do AddTheme(t) end
+AddSettings()
+
+local dragging, dragStart, startPos
+TopBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = MainFrame.Position
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - dragStart
+		MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+	end
+end)
+
+MiniBtn.MouseButton1Click:Connect(function()
+	Minimized = not Minimized
+	local targetSize = Minimized and UDim2.new(0, 280, 0, 50) or UDim2.new(0, 280, 0, 350)
+	local targetBlur = Minimized and 0 or 15
+	
+	TweenService:Create(MainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = targetSize}):Play()
+	TweenService:Create(blur, TweenInfo.new(0.5), {Size = targetBlur}):Play()
+	TweenService:Create(Pill, TweenInfo.new(0.3), {BackgroundTransparency = Minimized and 0.8 or 0.4}):Play()
+end)
+
+ScreenGui.Destroying:Connect(function() blur:Destroy() end)
+StarterGui:SetCore("SendNotification", {Title = "Furry Love", Text = "By Cap(CapLonerPo)", Duration = 3})
+
