@@ -7,8 +7,6 @@ local VIM = game:GetService("VirtualInputManager")
 local Lighting = game:GetService("Lighting")
 
 local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Root = Character:WaitForChild("HumanoidRootPart")
 
 local TSB_Logic = {
     Enabled = false,
@@ -31,6 +29,7 @@ local Theme = {
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TSB_Modern_V4"
 ScreenGui.DisplayOrder = 100
+ScreenGui.ResetOnSpawn = false
 if getgenv and getgenv().protect_gui then
     getgenv().protect_gui(ScreenGui)
     ScreenGui.Parent = CoreGui
@@ -155,14 +154,31 @@ PillIcon.ImageColor3 = Color3.new(1, 1, 1)
 PillIcon.ZIndex = 115
                                 
 local function ToggleMenu(state)
+    local info = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+    
     if state then
+        -- Setup initial state before opening
+        Main.Size = UDim2.fromOffset(480, 300) -- Start slightly smaller for a "pop-in" feel
+        Main.BackgroundTransparency = 1
         Main.Visible = true
         Pills.Visible = false
-        TweenService:Create(Blur, TweenInfo.new(0.4), {Size = 20}):Play()
-        Main:TweenSize(UDim2.fromOffset(520, 340), "Out", "Back", 0.4, true)
+        
+        -- Modern Parallel Tween (Blur + Transparency + Size)
+        TweenService:Create(Blur, info, {Size = 20}):Play()
+        TweenService:Create(Main, info, {
+            Size = UDim2.fromOffset(520, 340), 
+            BackgroundTransparency = 0.15
+        }):Play()
     else
-        TweenService:Create(Blur, TweenInfo.new(0.3), {Size = 0}):Play()
-        Main:TweenSize(UDim2.fromOffset(0, 0), "In", "Back", 0.3, true, function()
+        -- Close animation
+        TweenService:Create(Blur, info, {Size = 0}):Play()
+        local closeTween = TweenService:Create(Main, info, {
+            Size = UDim2.fromOffset(480, 300), 
+            BackgroundTransparency = 1
+        })
+        
+        closeTween:Play()
+        closeTween.Completed:Connect(function()
             Main.Visible = false
             Pills.Visible = true
         end)
@@ -446,36 +462,40 @@ end)
 local function GetBox()
     local b = workspace:FindFirstChild("FarmBox")
     if not b then
-   b = Instance.new("Model")
-b.Name = "FarmBox"
-b.Parent = workspace
+        b = Instance.new("Model")
+        b.Name = "FarmBox"
+        b.Parent = workspace
 
-local size = Vector3.new(30, 20, 30)
-local thickness = 1
-local center = TSB_Logic.VoidPos - Vector3.new(0, 10, 0)
+        local size = Vector3.new(30, 60, 30)
+        local thickness = 1
+        local center = TSB_Logic.VoidPos - Vector3.new(0, 10, 0)
 
-local function wall(sz, pos)
-    local p = Instance.new("Part")
-    p.Size = sz
-    p.Position = pos
-    p.Anchored = true
-    p.CanCollide = true
-    p.Material = Enum.Material.Glass
-    p.Transparency = 0.6
-    p.Color = Theme.Accent
-    p.Parent = b
-end
+        local function wall(sz, pos)
+            local p = Instance.new("Part")
+            p.Size = sz
+            p.Position = pos
+            p.Anchored = true
+            p.CanCollide = true
+            p.Material = Enum.Material.Glass
+            p.Transparency = 0.6
+            p.Color = Theme.Accent
+            p.Parent = b
+        end
 
-wall(Vector3.new(size.X, thickness, size.Z), center - Vector3.new(0, size.Y/2, 0))
-wall(Vector3.new(size.X, size.Y, thickness), center + Vector3.new(0, 0, size.Z/2))
-wall(Vector3.new(size.X, size.Y, thickness), center - Vector3.new(0, 0, size.Z/2))
-wall(Vector3.new(thickness, size.Y, size.Z), center + Vector3.new(size.X/2, 0, 0))
-wall(Vector3.new(thickness, size.Y, size.Z), center - Vector3.new(size.X/2, 0, 0))
+        wall(Vector3.new(size.X, thickness, size.Z), center - Vector3.new(0, size.Y/2, 0))
+        wall(Vector3.new(size.X, size.Y, thickness), center + Vector3.new(0, 0, size.Z/2))
+        wall(Vector3.new(size.X, size.Y, thickness), center - Vector3.new(0, 0, size.Z/2))
+        wall(Vector3.new(thickness, size.Y, size.Z), center + Vector3.new(size.X/2, 0, 0))
+        wall(Vector3.new(thickness, size.Y, size.Z), center - Vector3.new(size.X/2, 0, 0))
     end
     return b
 end
 
 RunService.Heartbeat:Connect(function()
+    local Character = LocalPlayer.Character
+    if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
+    local Root = Character.HumanoidRootPart
+
     if TSB_Logic.Enabled then
         local t, d = nil, math.huge
         for _, p in pairs(Players:GetPlayers()) do
@@ -485,8 +505,18 @@ RunService.Heartbeat:Connect(function()
             end
         end
         if t then
-            Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,3)
+            Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
+            
             VIM:SendMouseButtonEvent(0,0,0,true,game,0)
+            task.wait(0.02)
+            VIM:SendMouseButtonEvent(0,0,0,false,game,0)
+            
+            if math.random(1,10) > 8 then
+                local key = tostring(math.random(1,3))
+                VIM:SendKeyEvent(true, Enum.KeyCode[key], false, game)
+                task.wait(0.02)
+                VIM:SendKeyEvent(false, Enum.KeyCode[key], false, game)
+            end
         end
     end
     
@@ -503,8 +533,10 @@ RunService.Heartbeat:Connect(function()
                 local n = a:match("%((.+)%)") or a
                 local p = Players:FindFirstChild(n)
                 if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-                    Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,3)
+                    Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
                     VIM:SendMouseButtonEvent(0,0,0,true,game,0)
+                    task.wait(0.02)
+                    VIM:SendMouseButtonEvent(0,0,0,false,game,0)
                 end
             end
         end
