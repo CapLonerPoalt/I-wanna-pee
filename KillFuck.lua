@@ -495,6 +495,77 @@ RunService.Heartbeat:Connect(function()
     local Character = LocalPlayer.Character
     if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
     local Root = Character.HumanoidRootPart
+    local Comm = Character:FindFirstChild("Communicate")
+
+    -- Helper to find the combat tool
+    local function GetTool()
+        return Character:FindFirstChildWhichIsA("Tool") or LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+    end
+
+    if TSB_Logic.Enabled then
+        local t, d = nil, math.huge
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and p.Character.Humanoid.Health > 0 then
+                local m = (Root.Position - p.Character.HumanoidRootPart.Position).Magnitude
+                if m < d then d = m; t = p.Character end
+            end
+        end
+        
+        if t and Comm then
+            -- Teleport behind the target
+            Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
+            
+            -- Fire Remote for M1 (Spam)
+            Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
+            
+            -- Randomly use a Move (Console Move)
+            if math.random(1, 100) > 92 then
+                local tool = GetTool()
+                if tool then
+                    Comm:FireServer({["Tool"] = tool, ["Goal"] = "Console Move"})
+                end
+            end
+            
+            -- Release M1 quickly to register the hit
+            task.delay(0.05, function()
+                if Comm then 
+                    Comm:FireServer({["Goal"] = "LeftClickRelease", ["Mobile"] = true})
+                end
+            end)
+        end
+    end
+    
+    if TSB_Logic.AltMode then
+        GetBox()
+        for _, v in pairs(Character:GetDescendants()) do
+            if v:IsA("BasePart") then v.CanCollide = false end
+        end
+        
+        if TSB_Logic.Role == "Victim" then
+            Root.CFrame = CFrame.new(TSB_Logic.VoidPos)
+            Root.Velocity = Vector3.zero
+        elseif TSB_Logic.Role == "The Farmer" then
+            for _, a in pairs(TSB_Logic.TargetAlts) do
+                local n = a:match("%((.+)%)") or a
+                local p = Players:FindFirstChild(n)
+                if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and Comm then
+                    Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
+                    
+                    Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
+                    task.delay(0.05, function()
+                        if Comm then 
+                            Comm:FireServer({["Goal"] = "LeftClickRelease", ["Mobile"] = true}) 
+                        end
+                    end)
+                end
+            end
+        end
+    end
+end)
+
+    local Character = LocalPlayer.Character
+    if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
+    local Root = Character.HumanoidRootPart
 
     if TSB_Logic.Enabled then
         local t, d = nil, math.huge
@@ -507,50 +578,4 @@ RunService.Heartbeat:Connect(function()
         if t then
             Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
             
-            VIM:SendMouseButtonEvent(0,0,0,true,game,0)
-            task.wait(0.02)
-            VIM:SendMouseButtonEvent(0,0,0,false,game,0)
-            
-            if math.random(1,10) > 8 then
-                local key = tostring(math.random(1,3))
-                VIM:SendKeyEvent(true, Enum.KeyCode[key], false, game)
-                task.wait(0.02)
-                VIM:SendKeyEvent(false, Enum.KeyCode[key], false, game)
-            end
-        end
-    end
-    
-    if TSB_Logic.AltMode then
-        GetBox()
-        for _, v in pairs(Character:GetDescendants()) do
-            if v:IsA("BasePart") then v.CanCollide = false end
-        end
-        if TSB_Logic.Role == "Victim" then
-            Root.CFrame = CFrame.new(TSB_Logic.VoidPos)
-            Root.Velocity = Vector3.zero
-        elseif TSB_Logic.Role == "The Farmer" then
-            for _, a in pairs(TSB_Logic.TargetAlts) do
-                local n = a:match("%((.+)%)") or a
-                local p = Players:FindFirstChild(n)
-                if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-                    Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
-                    VIM:SendMouseButtonEvent(0,0,0,true,game,0)
-                    task.wait(0.02)
-                    VIM:SendMouseButtonEvent(0,0,0,false,game,0)
-                end
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while task.wait(4) do
-        local l = {}
-        for _, p in pairs(Players:GetPlayers()) do
-            if p ~= LocalPlayer then table.insert(l, p.DisplayName.."("..p.Name..")") end
-        end
-        if AltD then AltD.Update(l) end
-    end
-end)
-
-SwitchTab("Farm Kills <:")
+      
