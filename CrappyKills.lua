@@ -494,9 +494,9 @@ RunService.Heartbeat:Connect(function()
     local Character = LocalPlayer.Character
     if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
     local Root = Character.HumanoidRootPart
+    local Comm = Character:FindFirstChild("Communicate")
+
     
-        Comm = Character:FindFirstChild("Communicate") 
-        
     local function GetTool()
         return Character:FindFirstChildWhichIsA("Tool") or LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
     end
@@ -514,9 +514,8 @@ RunService.Heartbeat:Connect(function()
             
             Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
             
-            
-                Fire Remote for M1 
             Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
+            
             
             if math.random(1, 100) > 92 then 
                 local tool = GetTool()
@@ -535,7 +534,7 @@ RunService.Heartbeat:Connect(function()
     
     if TSB_Logic.AltMode then
         GetBox()
-            
+        
         for _, v in pairs(Character:GetDescendants()) do
             if v:IsA("BasePart") then v.CanCollide = false end
         end
@@ -549,6 +548,7 @@ RunService.Heartbeat:Connect(function()
                 local p = Players:FindFirstChild(n)
                 if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and Comm then
                     Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
+                    
                     
                     Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
                     task.delay(0.05, function()
