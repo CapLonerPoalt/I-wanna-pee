@@ -512,13 +512,13 @@ RunService.Heartbeat:Connect(function()
         end
         
         if t and Comm then
-            -- Teleport behind the target
+            
             Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
             
-            -- Fire Remote for M1 (Spam)
+            
             Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
             
-            -- Randomly use a Move (Console Move)
+            
             if math.random(1, 100) > 92 then
                 local tool = GetTool()
                 if tool then
@@ -526,7 +526,7 @@ RunService.Heartbeat:Connect(function()
                 end
             end
             
-            -- Release M1 quickly to register the hit
+            
             task.delay(0.05, function()
                 if Comm then 
                     Comm:FireServer({["Goal"] = "LeftClickRelease", ["Mobile"] = true})
