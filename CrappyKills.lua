@@ -494,9 +494,9 @@ RunService.Heartbeat:Connect(function()
     local Character = LocalPlayer.Character
     if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
     local Root = Character.HumanoidRootPart
-    [span_0](start_span)local Comm = Character:FindFirstChild("Communicate") -- The RemoteEvent used for attacks[span_0](end_span)
-
-    -[span_1](start_span)- Helper to find the combat tool (required for moves)[span_1](end_span)
+    
+        Comm = Character:FindFirstChild("Communicate") 
+        
     local function GetTool()
         return Character:FindFirstChildWhichIsA("Tool") or LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
     end
@@ -511,21 +511,20 @@ RunService.Heartbeat:Connect(function()
         end
         
         if t and Comm then
-            -- Teleport behind the target
+            
             Root.CFrame = t.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
             
-            -[span_2](start_span)- Fire Remote for M1 (Spam)[span_2](end_span)
+            
+                Fire Remote for M1 
             Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
             
-            -[span_3](start_span)- Randomly use a Move (Console Move)[span_3](end_span)
-            if math.random(1, 100) > 92 then -- Adjustable chance for using skills
+            if math.random(1, 100) > 92 then 
                 local tool = GetTool()
                 if tool then
                     Comm:FireServer({["Tool"] = tool, ["Goal"] = "Console Move"})
                 end
             end
             
-            -[span_4](start_span)- Release M1 quickly to register the hit[span_4](end_span)
             task.delay(0.05, function()
                 if Comm then 
                     Comm:FireServer({["Goal"] = "LeftClickRelease", ["Mobile"] = true})
@@ -536,7 +535,7 @@ RunService.Heartbeat:Connect(function()
     
     if TSB_Logic.AltMode then
         GetBox()
-        -- Noclip inside box
+            
         for _, v in pairs(Character:GetDescendants()) do
             if v:IsA("BasePart") then v.CanCollide = false end
         end
@@ -551,7 +550,6 @@ RunService.Heartbeat:Connect(function()
                 if p and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and Comm then
                     Root.CFrame = p.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2.5)
                     
-                    -- Attack the alt using Remotes
                     Comm:FireServer({["Goal"] = "LeftClick", ["Mobile"] = true})
                     task.delay(0.05, function()
                         if Comm then 
